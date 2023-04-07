@@ -1,4 +1,4 @@
-CFLAGS = -Wall -pedantic -O2 -Wextra -fsanitize=address -g
+CFLAGS = -Wall -pedantic -O2 -Wextra -fsanitize=address -g -std=c++17
 LFLAGS = -fsanitize=address
 SRC = $(wildcard src/*.cpp) # find all .cpp files in the src directory.
 
