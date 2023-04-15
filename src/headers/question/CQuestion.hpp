@@ -2,6 +2,7 @@
 
 #include <string>
 #include <iostream>
+#include <iomanip>
 #include "../answer/CAnswer.hpp"
 
 class CQuestion

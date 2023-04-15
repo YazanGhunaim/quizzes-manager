@@ -13,9 +13,10 @@ CTextQuestion::~CTextQuestion()
 void CTextQuestion::display()
 {
     std::string user_answer;
-    std::cout << "Q: " << m_question << m_answer->format_info() << std::endl;
-    std::cout << "A: ";
+    std::cout << "\033[33mQ: " << m_question << "\033[0m" << m_answer->format_info() << std::endl;
+    std::cout << "\033[33mA: ";
     getline(std::cin, user_answer);
+    std::cout << "\033[0m";
     set_userAnswer(user_answer);
 }
 

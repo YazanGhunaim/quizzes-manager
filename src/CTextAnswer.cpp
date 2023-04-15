@@ -28,7 +28,7 @@ bool CTextAnswer::evaluate_answer()
 {
     if (format_error())
     {
-        std::cout << "[ERROR] Wrong format for T/F answer." << std::endl;
+        std::cout << "[ERROR] Wrong format for Text answer." << std::endl;
         throw std::invalid_argument("[ERROR] Wrong format for text answer.");
     }
     // convert both answers to lower case
