@@ -1,24 +1,31 @@
-#include "CTextQuestion.hpp"
+#include "headers/question/CTextQuestion.hpp"
 
-CTextQuestion::CTextQuestion(const std::vector<std::string> &question, const std::set<std::string> &answers)
-    : CQuestion(question, answers) {}
+// constructor
+CTextQuestion::CTextQuestion(const std::string &question, CAnswer *answer)
+    : CQuestion(question, answer) {}
 
-CTextQuestion::~CTextQuestion() {}
-
-std::vector<std::string> CTextQuestion::get_question() const { return CQuestion::m_question; }
-
-std::set<std::string> CTextQuestion::get_answers() const { return CQuestion::m_answer; }
-
-void CTextQuestion::answer_question(const std::string &user_answer) { CQuestion::m_userAnswer = user_answer; }
-
-bool CTextQuestion::evaluate_question() const
+// destructor
+CTextQuestion::~CTextQuestion()
 {
-    for (const auto &answer : CQuestion::m_answer)
-    {
-        if (CQuestion::m_userAnswer != answer)
-        {
-            return false;
-        }
-    }
-    return true;
+    delete m_answer;
+}
+
+void CTextQuestion::display()
+{
+    std::string user_answer;
+    std::cout << "Q: " << m_question << m_answer->format_info() << std::endl;
+    std::cout << "A: ";
+    getline(std::cin, user_answer);
+    set_userAnswer(user_answer);
+}
+
+bool CTextQuestion::check_answer() const
+{
+    return m_answer->evaluate_answer();
+}
+
+void CTextQuestion::set_userAnswer(const std::string &answer)
+{
+    m_answer->set_userAnswer(answer);
+    return;
 }
