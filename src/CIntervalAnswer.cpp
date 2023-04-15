@@ -30,7 +30,7 @@ bool CIntervalAnswer::evaluate_answer()
 {
     if (format_error())
     {
-        std::cout << "[ERROR] Wrong format answer." << std::endl;
+        std::cout << "[ERROR] Wrong format for interval answer." << std::endl;
         throw std::invalid_argument("[ERROR] Wrong format for interval answer.");
     }
 

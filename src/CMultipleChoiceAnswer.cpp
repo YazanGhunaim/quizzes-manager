@@ -36,7 +36,7 @@ bool CMultipleChoiceAnswer::evaluate_answer()
 {
     if (format_error())
     {
-        std::cout << "[ERROR] Wrong format for T/F answer." << std::endl;
+        std::cout << "[ERROR] Wrong format for multiple choice answer." << std::endl;
         throw std::invalid_argument("[ERROR] Wrong format for multiple choice answer.");
     }
 
@@ -56,6 +56,5 @@ bool CMultipleChoiceAnswer::evaluate_answer()
 
     std::sort(m_correctAnswers.begin(), m_correctAnswers.end());
     std::sort(m_userAnswer.begin(), m_userAnswer.end());
-
     return m_correctAnswers == m_userAnswer;
 }

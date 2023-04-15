@@ -1,16 +1,16 @@
-#include "headers/question/CSingleChoiceQuestion.hpp"
+#include "headers/question/CMultiChoiceQuestion.hpp"
 
 // constructor
-CSingleChoiceQuestion::CSingleChoiceQuestion(const std::string &question, CAnswer *answer, const std::vector<std::string> &options)
+CMultiChoiceQuestion::CMultiChoiceQuestion(const std::string &question, CAnswer *answer, const std::vector<std::string> &options)
     : CQuestion(question, answer), m_options(options) {}
 
 // destructor
-CSingleChoiceQuestion::~CSingleChoiceQuestion()
+CMultiChoiceQuestion::~CMultiChoiceQuestion()
 {
     delete m_answer;
 }
 
-void CSingleChoiceQuestion::display_options() const
+void CMultiChoiceQuestion::display_options() const
 {
     std::cout << "\nOptions: " << std::endl;
     for (size_t i = 0; i < m_options.size(); ++i)
@@ -19,7 +19,7 @@ void CSingleChoiceQuestion::display_options() const
     }
     std::cout << std::endl;
 }
-void CSingleChoiceQuestion::display()
+void CMultiChoiceQuestion::display()
 {
     std::string user_answer;
     std::cout << "\033[33mQ: " << m_question << "\033[0m" << m_answer->format_info() << std::endl;
@@ -30,15 +30,22 @@ void CSingleChoiceQuestion::display()
     set_userAnswer(user_answer);
 }
 
-bool CSingleChoiceQuestion::check_answer() const
+bool CMultiChoiceQuestion::check_answer() const
 {
     return m_answer->evaluate_answer();
 }
 
-void CSingleChoiceQuestion::set_userAnswer(const std::string &answer)
+void CMultiChoiceQuestion::set_userAnswer(const std::string &answer)
 {
+    std::string finalAnswer;
     std::stringstream ss(answer);
     std::vector<std::string> userAnswers{std::istream_iterator<std::string>(ss), std::istream_iterator<std::string>()};
+
+    if (userAnswers.size() == 0)
+    {
+        m_answer->set_userAnswer(answer);
+        return;
+    }
 
     if (userAnswers[0].size() > 1)
     {
@@ -47,13 +54,16 @@ void CSingleChoiceQuestion::set_userAnswer(const std::string &answer)
     }
     else // answer is of the form a b etc
     {
-        if (userAnswers.size() != 1)
+        for (const auto &ans : userAnswers)
         {
-            std::cout << "[ERROR] More than one answer was given." << std::endl;
-            throw std::invalid_argument("[ERROR] More than one answer was given.");
+            char cAnswer = ans[0];
+            size_t index = static_cast<int>(std::toupper(cAnswer)) - static_cast<int>('A');
+            if (!finalAnswer.empty())
+            {
+                finalAnswer += " ";
+            }
+            finalAnswer += m_options[index];
         }
-        char cAnswer = answer[0];
-        size_t index = static_cast<int>(std::toupper(cAnswer)) - static_cast<int>('A');
-        m_answer->set_userAnswer(m_options[index]);
+        m_answer->set_userAnswer(finalAnswer);
     }
 }

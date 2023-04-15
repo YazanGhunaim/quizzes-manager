@@ -31,7 +31,7 @@ bool CTrueFalseAnswer::evaluate_answer()
 
     if (format_error())
     {
-        std::cout << "[ERROR] Wrong format answer." << std::endl;
+        std::cout << "[ERROR] Wrong format for T/F answer." << std::endl;
         throw std::invalid_argument("[ERROR] Wrong format for T/F answer.");
     }
     return m_userAnswer == m_correctAnswer;

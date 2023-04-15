@@ -2,14 +2,14 @@
 
 #include "CQuestion.hpp"
 
-class CSingleChoiceQuestion : public CQuestion
+class CMultiChoiceQuestion : public CQuestion
 {
 private:
     std::vector<std::string> m_options;
 
 public:
-    CSingleChoiceQuestion(const std::string &question, CAnswer *answer, const std::vector<std::string> &options);
-    ~CSingleChoiceQuestion() override;
+    CMultiChoiceQuestion(const std::string &question, CAnswer *answer, const std::vector<std::string> &options);
+    ~CMultiChoiceQuestion() override;
     void display() override;
     void display_options() const;
     bool check_answer() const override;

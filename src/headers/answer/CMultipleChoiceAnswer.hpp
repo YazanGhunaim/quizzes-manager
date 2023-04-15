@@ -3,6 +3,7 @@
 #include "CAnswer.hpp"
 #include <vector>
 
+// where more than one answer is correct
 class CMultipleChoiceAnswer : public CAnswer
 {
 private:
