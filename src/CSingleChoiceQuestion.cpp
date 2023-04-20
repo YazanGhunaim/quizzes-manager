@@ -2,7 +2,13 @@
 
 // constructor
 CSingleChoiceQuestion::CSingleChoiceQuestion(const std::string &question, CAnswer *answer, const std::vector<std::string> &options)
-    : CQuestion(question, answer), m_options(options) {}
+    : CQuestion(question, answer)
+{
+    for (size_t i = 0; i < options.size(); ++i)
+    {
+        m_options[static_cast<unsigned char>('a' + i)] = options[i];
+    }
+}
 
 // destructor
 CSingleChoiceQuestion::~CSingleChoiceQuestion()
@@ -13,9 +19,9 @@ CSingleChoiceQuestion::~CSingleChoiceQuestion()
 void CSingleChoiceQuestion::display_options() const
 {
     std::cout << "\nOptions: " << std::endl;
-    for (size_t i = 0; i < m_options.size(); ++i)
+    for (const auto &[option, question] : m_options)
     {
-        std::cout << std::setw(5) << static_cast<unsigned char>('A' + i) << " : " << m_options[i] << std::endl;
+        std::cout << std::setw(5) << option << " : " << question << std::endl;
     }
     std::cout << std::endl;
 }
@@ -35,25 +41,18 @@ bool CSingleChoiceQuestion::check_answer() const
     return m_answer->evaluate_answer();
 }
 
+bool CSingleChoiceQuestion::format_error(const std::string &answer) const
+{
+    return answer.size() > 1 || m_options.find(answer[0]) == m_options.end();
+}
+
 void CSingleChoiceQuestion::set_userAnswer(const std::string &answer)
 {
-    std::stringstream ss(answer);
-    std::vector<std::string> userAnswers{std::istream_iterator<std::string>(ss), std::istream_iterator<std::string>()};
-
-    if (userAnswers[0].size() > 1)
+    if (format_error(answer))
     {
-        m_answer->set_userAnswer(answer);
+        std::cout << "\033[31mInvalid answer format\033[0m" << std::endl;
+        throw std::invalid_argument("[ERROR] Wrong format for single choice question.");
         return;
     }
-    else // answer is of the form a b etc
-    {
-        if (userAnswers.size() != 1)
-        {
-            std::cout << "[ERROR] More than one answer was given." << std::endl;
-            throw std::invalid_argument("[ERROR] More than one answer was given.");
-        }
-        char cAnswer = answer[0];
-        size_t index = static_cast<int>(std::toupper(cAnswer)) - static_cast<int>('A');
-        m_answer->set_userAnswer(m_options[index]);
-    }
+    m_answer->set_userAnswer(answer);
 }

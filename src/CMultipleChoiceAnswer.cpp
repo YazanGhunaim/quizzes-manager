@@ -36,7 +36,7 @@ bool CMultipleChoiceAnswer::evaluate_answer()
 {
     if (format_error())
     {
-        std::cout << "[ERROR] Wrong format for multiple choice answer." << std::endl;
+        std::cout << "\033[31m[ERROR] Wrong format for multiple choice answer.\033[0m" << std::endl;
         throw std::invalid_argument("[ERROR] Wrong format for multiple choice answer.");
     }
 

@@ -1,11 +1,12 @@
 #pragma once
 
 #include "CQuestion.hpp"
+#include <map>
 
 class CMultiChoiceQuestion : public CQuestion
 {
 private:
-    std::vector<std::string> m_options;
+    std::map<char, std::string> m_options;
 
 public:
     CMultiChoiceQuestion(const std::string &question, CAnswer *answer, const std::vector<std::string> &options);
@@ -13,6 +14,7 @@ public:
     void display() override;
     void display_options() const;
     bool check_answer() const override;
+    bool format_error(const std::string &answer) const override;
     void set_userAnswer(const std::string &answer) override;
 };
 

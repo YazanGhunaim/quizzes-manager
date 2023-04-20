@@ -16,5 +16,6 @@ public:
     virtual ~CQuestion() {}
     virtual void display() = 0; // display questions and prompts user for answers
     virtual bool check_answer() const = 0;
+    virtual bool format_error(const std::string &answer) const { return answer.empty(); }
     virtual void set_userAnswer(const std::string &answer) = 0;
 };
