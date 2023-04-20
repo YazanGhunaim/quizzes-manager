@@ -16,7 +16,7 @@ std::string CMultipleChoiceAnswer::get_correctAnswer() const
 std::string CMultipleChoiceAnswer::format_info() const
 {
     std::stringstream ss;
-    ss << "\033[36m[Your answer should be in form (Option 1, Option 2, Option 3, ... etc )]\033[0m ";
+    ss << "\033[36m[Your answer should be in form (Option 1,Option 2,Option 3, ... etc )]\033[0m ";
     return ss.str();
 }
 

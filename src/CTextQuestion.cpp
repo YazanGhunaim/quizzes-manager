@@ -21,7 +21,7 @@ void CTextQuestion::display()
 {
     std::string user_answer;
     std::cout << "\033[33mQ: " << m_question << "\033[0m\n"
-              << std::endl;
+              << format_info() << std::endl;
     std::cout << m_answer->format_info() << std::endl;
     std::cout << "\033[33mA: ";
     getline(std::cin, user_answer);
