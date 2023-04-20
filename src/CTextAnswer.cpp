@@ -10,7 +10,7 @@ std::string CTextAnswer::get_correctAnswer() const
 std::string CTextAnswer::format_info() const
 {
     std::stringstream ss;
-    ss << " \033[36m[Your answer should be in text form]\033[0m ";
+    ss << "\033[36m[Your answer should be in text form]\033[0m ";
     return ss.str();
 }
 

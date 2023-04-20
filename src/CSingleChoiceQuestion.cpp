@@ -4,6 +4,11 @@
 CSingleChoiceQuestion::CSingleChoiceQuestion(const std::string &question, CAnswer *answer, const std::vector<std::string> &options)
     : CQuestion(question, answer)
 {
+    if (answer->multiple_answers())
+    {
+        throw std::invalid_argument("[ERROR] Single choice question cannot have multiple answers.");
+    }
+
     for (size_t i = 0; i < options.size(); ++i)
     {
         m_options[static_cast<unsigned char>('a' + i)] = options[i];
@@ -28,7 +33,8 @@ void CSingleChoiceQuestion::display_options() const
 void CSingleChoiceQuestion::display()
 {
     std::string user_answer;
-    std::cout << "\033[33mQ: " << m_question << "\033[0m" << m_answer->format_info() << std::endl;
+    std::cout << "\033[33mQ: " << m_question << "\033[0m\n"
+              << m_answer->format_info() << std::endl;
     display_options();
     std::cout << "\033[33mA: ";
     getline(std::cin, user_answer);
@@ -54,5 +60,5 @@ void CSingleChoiceQuestion::set_userAnswer(const std::string &answer)
         throw std::invalid_argument("[ERROR] Wrong format for single choice question.");
         return;
     }
-    m_answer->set_userAnswer(answer);
+    m_answer->set_userAnswer(m_options.at(answer[0]));
 }

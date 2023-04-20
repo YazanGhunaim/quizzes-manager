@@ -17,6 +17,7 @@ public:
     virtual std::string format_info() const = 0;
     virtual bool evaluate_answer() = 0;
     virtual bool format_error() const = 0;
+    virtual bool multiple_answers() const = 0;
 
     static void tolower(std::string &string)
     {

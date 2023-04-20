@@ -17,6 +17,7 @@ public:
     std::string format_info() const override;
     void set_userAnswer(const std::string &userAnswer) override;
     bool format_error() const override;
+    bool multiple_answers() const override { return m_correctAnswers.size() > 1; }
     bool evaluate_answer() override;
 };
 

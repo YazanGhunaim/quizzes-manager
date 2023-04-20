@@ -13,7 +13,7 @@ CTextQuestion::~CTextQuestion()
 void CTextQuestion::display()
 {
     std::string user_answer;
-    std::cout << "\033[33mQ: " << m_question << "\033[0m" << m_answer->format_info() << std::endl;
+    std::cout << "\033[33mQ: " << m_question << "\033[0m\n" << m_answer->format_info() << std::endl;
     std::cout << "\033[33mA: ";
     getline(std::cin, user_answer);
     std::cout << "\033[0m";
@@ -23,6 +23,11 @@ void CTextQuestion::display()
 bool CTextQuestion::check_answer() const
 {
     return m_answer->evaluate_answer();
+}
+
+bool CTextQuestion::format_error(const std::string &answer) const
+{
+    return answer.empty();
 }
 
 void CTextQuestion::set_userAnswer(const std::string &answer)

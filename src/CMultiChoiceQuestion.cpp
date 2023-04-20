@@ -28,7 +28,7 @@ void CMultiChoiceQuestion::display_options() const
 void CMultiChoiceQuestion::display()
 {
     std::string user_answer;
-    std::cout << "\033[33mQ: " << m_question << "\033[0m" << m_answer->format_info() << std::endl;
+    std::cout << "\033[33mQ: " << m_question << "\033[0m\n" << m_answer->format_info() << std::endl;
     display_options();
     std::cout << "\033[33mA: ";
     getline(std::cin, user_answer);

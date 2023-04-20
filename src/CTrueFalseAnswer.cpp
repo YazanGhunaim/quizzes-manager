@@ -10,7 +10,7 @@ std::string CTrueFalseAnswer::get_correctAnswer() const
 std::string CTrueFalseAnswer::format_info() const
 {
     std::stringstream ss;
-    ss << " \033[36m[Your answer should be True/False]\033[0m ";
+    ss << "\033[36m[Your answer should be True/False]\033[0m ";
     return ss.str();
 }
 
