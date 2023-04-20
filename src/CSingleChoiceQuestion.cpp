@@ -30,11 +30,19 @@ void CSingleChoiceQuestion::display_options() const
     }
     std::cout << std::endl;
 }
+
+std::string CSingleChoiceQuestion::format_info() const
+{
+    std::stringstream ss;
+    ss << "\033[36m[Please choose the correct option]\033[0m ";
+    return ss.str();
+}
+
 void CSingleChoiceQuestion::display()
 {
     std::string user_answer;
     std::cout << "\033[33mQ: " << m_question << "\033[0m\n"
-              << m_answer->format_info() << std::endl;
+              << format_info() << std::endl;
     display_options();
     std::cout << "\033[33mA: ";
     getline(std::cin, user_answer);

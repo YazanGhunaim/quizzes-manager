@@ -16,15 +16,18 @@ std::string CMultipleChoiceAnswer::get_correctAnswer() const
 std::string CMultipleChoiceAnswer::format_info() const
 {
     std::stringstream ss;
-    ss << "\033[36m[Your answer should be in form (Option 1 Option 2 Option 3 ... etc )]\033[0m ";
+    ss << "\033[36m[Your answer should be in form (Option 1, Option 2, Option 3, ... etc )]\033[0m ";
     return ss.str();
 }
 
 void CMultipleChoiceAnswer::set_userAnswer(const std::string &userAnswer)
 {
     std::stringstream ss{userAnswer};
-    std::vector<std::string> userAnswer_vec{std::istream_iterator<std::string>(ss), std::istream_iterator<std::string>()};
-    m_userAnswer = userAnswer_vec;
+    std::string answer;
+    while (std::getline(ss, answer, ','))
+    {
+        m_userAnswer.push_back(answer);
+    }
 }
 
 bool CMultipleChoiceAnswer::format_error() const

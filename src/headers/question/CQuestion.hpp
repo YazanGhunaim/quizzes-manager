@@ -18,4 +18,5 @@ public:
     virtual bool check_answer() const = 0;
     virtual bool format_error(const std::string &answer) const = 0;
     virtual void set_userAnswer(const std::string &answer) = 0;
+    virtual std::string format_info() const = 0;
 };

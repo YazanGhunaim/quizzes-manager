@@ -16,6 +16,7 @@ public:
     bool check_answer() const override;
     bool format_error(const std::string &answer) const override;
     void set_userAnswer(const std::string &answer) override;
+    virtual std::string format_info() const override;
 };
 
 /*

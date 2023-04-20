@@ -10,10 +10,19 @@ CTextQuestion::~CTextQuestion()
     delete m_answer;
 }
 
+std::string CTextQuestion::format_info() const
+{
+    std::stringstream ss;
+    ss << "\033[36m[Please write the correct answer]\033[0m ";
+    return ss.str();
+}
+
 void CTextQuestion::display()
 {
     std::string user_answer;
-    std::cout << "\033[33mQ: " << m_question << "\033[0m\n" << m_answer->format_info() << std::endl;
+    std::cout << "\033[33mQ: " << m_question << "\033[0m\n"
+              << std::endl;
+    std::cout << m_answer->format_info() << std::endl;
     std::cout << "\033[33mA: ";
     getline(std::cin, user_answer);
     std::cout << "\033[0m";

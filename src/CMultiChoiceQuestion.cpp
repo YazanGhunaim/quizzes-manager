@@ -25,10 +25,19 @@ void CMultiChoiceQuestion::display_options() const
     }
     std::cout << std::endl;
 }
+
+std::string CMultiChoiceQuestion::format_info() const
+{
+    std::stringstream ss;
+    ss << "\033[36m[Please choose the correct options]\033[0m ";
+    return ss.str();
+}
+
 void CMultiChoiceQuestion::display()
 {
     std::string user_answer;
-    std::cout << "\033[33mQ: " << m_question << "\033[0m\n" << m_answer->format_info() << std::endl;
+    std::cout << "\033[33mQ: " << m_question << "\033[0m\n"
+              << format_info() << std::endl;
     display_options();
     std::cout << "\033[33mA: ";
     getline(std::cin, user_answer);
@@ -65,5 +74,17 @@ void CMultiChoiceQuestion::set_userAnswer(const std::string &answer)
         return;
     }
 
-    m_answer->set_userAnswer(answer);
+    std::string user_answer;
+    for (const auto &c : answer)
+    {
+        if (c != ' ')
+        {
+            if (!user_answer.empty())
+            {
+                user_answer += ",";
+            }
+            user_answer += m_options.at(c);
+        }
+    }
+    m_answer->set_userAnswer(user_answer);
 }
