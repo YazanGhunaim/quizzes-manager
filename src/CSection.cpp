@@ -24,7 +24,8 @@ std::string CSection::getName() const
 
 void CSection::display()
 {
-    std::cout << "Section: " << m_name << std::endl;
+    std::cout << "\033[46mSection: " << getName() << std::endl;
+    std::cout << "\033[0m" << std::endl;
     for (auto &question : m_questions)
     {
         while (true)

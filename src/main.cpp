@@ -7,6 +7,7 @@
 #include "headers/question/CSingleChoiceQuestion.hpp"
 #include "headers/question/CMultiChoiceQuestion.hpp"
 #include "headers/section/CSection.hpp"
+#include "headers/quiz/CQuiz.hpp"
 
 int main()
 {
@@ -39,8 +40,10 @@ int main()
 
     std::vector<std::shared_ptr<CQuestion>> questions1 = {questionMC1, questionIA1, questionT1, questionTF1};
 
-    CSection section1{"section1", questions1};
-    section1.display();
-    section1.displayResults();
+    CSection section1{"Him Test", questions1};
+
+    CQuiz quiz1{"yazans trivia", {std::make_shared<CSection>(section1)}};
+    quiz1.display();
+    quiz1.displayResults();
     return 0;
 }
