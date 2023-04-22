@@ -6,44 +6,41 @@
 #include "headers/question/CTextQuestion.hpp"
 #include "headers/question/CSingleChoiceQuestion.hpp"
 #include "headers/question/CMultiChoiceQuestion.hpp"
+#include "headers/section/CSection.hpp"
 
 int main()
 {
-    std::cout << std::boolalpha;
+    CAnswer *answer0 = new CMultipleChoiceAnswer{std::vector<std::string>{"usa", "germany"}};
 
-    // correct use of single choice question
-    CAnswer *answer1 = new CMultipleChoiceAnswer{std::vector<std::string>{"usa", "germany"}};
-    CTextQuestion questionMC1{
+    std::shared_ptr<CQuestion> questionMC0 = std::make_shared<CTextQuestion>(
         "what two countries fought in WW1?",
-        answer1,
-    };
-    questionMC1.display();
-    std::cout << questionMC1.check_answer() << std::endl;
+        answer0);
+
+    CAnswer *answer1 = new CMultipleChoiceAnswer{std::vector<std::string>{"usa", "germany"}};
+
+    std::shared_ptr<CQuestion> questionMC1 = std::make_shared<CTextQuestion>(
+        "what two countries fought in WW1?",
+        answer1);
 
     CAnswer *answer2 = new CIntervalAnswer{"1914-1918"};
-    CTextQuestion questionIA1{
+    std::shared_ptr<CQuestion> questionIA1 = std::make_shared<CTextQuestion>(
         "when was WW1?",
-        answer2,
-    };
-
-    questionIA1.display();
-    std::cout << questionIA1.check_answer() << std::endl;
+        answer2);
 
     CAnswer *answer3 = new CTextAnswer{"yazan ghunaim"};
-    CTextQuestion questionT1{
+    std::shared_ptr<CQuestion> questionT1 = std::make_shared<CTextQuestion>(
         "who defeated the roman forces?",
-        answer3,
-    };
-    questionT1.display();
-    std::cout << questionT1.check_answer() << std::endl;
+        answer3);
 
     CAnswer *answer4 = new CTrueFalseAnswer{"true"};
-    CTextQuestion questionTF1{
+    std::shared_ptr<CQuestion> questionTF1 = std::make_shared<CTextQuestion>(
         "was yazan him",
-        answer4,
-    };
-    questionTF1.display();
-    std::cout << questionTF1.check_answer() << std::endl;
+        answer4);
 
+    std::vector<std::shared_ptr<CQuestion>> questions1 = {questionMC1, questionIA1, questionT1, questionTF1};
+
+    CSection section1{"section1", questions1};
+    section1.display();
+    section1.displayResults();
     return 0;
 }

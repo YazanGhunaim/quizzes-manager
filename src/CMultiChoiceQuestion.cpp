@@ -13,7 +13,6 @@ CMultiChoiceQuestion::CMultiChoiceQuestion(const std::string &question, CAnswer 
 // destructor
 CMultiChoiceQuestion::~CMultiChoiceQuestion()
 {
-    delete m_answer;
 }
 
 void CMultiChoiceQuestion::display_options() const
@@ -29,14 +28,14 @@ void CMultiChoiceQuestion::display_options() const
 std::string CMultiChoiceQuestion::format_info() const
 {
     std::stringstream ss;
-    ss << "\033[36m[Please choose the correct options]\033[0m ";
+    ss << "\033[1;36m[Please choose the correct options]\033[0m ";
     return ss.str();
 }
 
 void CMultiChoiceQuestion::display()
 {
     std::string user_answer;
-    std::cout << "\033[33mQ: " << m_question << "\033[0m\n"
+    std::cout << "\033[1;33mQ: " << m_question << "\033[0m\n"
               << format_info() << std::endl;
     display_options();
     std::cout << "\033[33mA: ";
@@ -69,8 +68,7 @@ void CMultiChoiceQuestion::set_userAnswer(const std::string &answer)
 {
     if (format_error(answer))
     {
-        std::cout << "\033[31mInvalid answer format\033[0m" << std::endl;
-        throw std::invalid_argument("[ERROR] Wrong format for multi choice question.");
+        throw std::invalid_argument("\033[1;31m[ERROR] Wrong format for multi choice question.\033[0m");
         return;
     }
 

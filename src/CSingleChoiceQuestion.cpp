@@ -1,12 +1,11 @@
 #include "headers/question/CSingleChoiceQuestion.hpp"
 
-// constructor
 CSingleChoiceQuestion::CSingleChoiceQuestion(const std::string &question, CAnswer *answer, const std::vector<std::string> &options)
     : CQuestion(question, answer)
 {
     if (answer->multiple_answers())
     {
-        throw std::invalid_argument("[ERROR] Single choice question cannot have multiple answers.");
+        throw std::invalid_argument("\033[1;31m[ERROR] Single choice question cannot have multiple answers.\033[0m");
     }
 
     for (size_t i = 0; i < options.size(); ++i)
@@ -15,10 +14,8 @@ CSingleChoiceQuestion::CSingleChoiceQuestion(const std::string &question, CAnswe
     }
 }
 
-// destructor
 CSingleChoiceQuestion::~CSingleChoiceQuestion()
 {
-    delete m_answer;
 }
 
 void CSingleChoiceQuestion::display_options() const
@@ -34,14 +31,14 @@ void CSingleChoiceQuestion::display_options() const
 std::string CSingleChoiceQuestion::format_info() const
 {
     std::stringstream ss;
-    ss << "\033[36m[Please choose the correct option]\033[0m ";
+    ss << "\033[1;36m[Please choose the correct option]\033[0m ";
     return ss.str();
 }
 
 void CSingleChoiceQuestion::display()
 {
     std::string user_answer;
-    std::cout << "\033[33mQ: " << m_question << "\033[0m\n"
+    std::cout << "\033[1;33mQ: " << m_question << "\033[0m\n"
               << format_info() << std::endl;
     display_options();
     std::cout << "\033[33mA: ";
@@ -64,8 +61,7 @@ void CSingleChoiceQuestion::set_userAnswer(const std::string &answer)
 {
     if (format_error(answer))
     {
-        std::cout << "\033[31mInvalid answer format\033[0m" << std::endl;
-        throw std::invalid_argument("[ERROR] Wrong format for single choice question.");
+        throw std::invalid_argument("\033[1;31m[ERROR] Wrong format for single choice question.\033[0m");
         return;
     }
     m_answer->set_userAnswer(m_options.at(answer[0]));

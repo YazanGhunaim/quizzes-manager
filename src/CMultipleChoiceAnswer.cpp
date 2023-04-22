@@ -16,7 +16,7 @@ std::string CMultipleChoiceAnswer::get_correctAnswer() const
 std::string CMultipleChoiceAnswer::format_info() const
 {
     std::stringstream ss;
-    ss << "\033[36m[Your answer should be in form (Option 1,Option 2,Option 3, ... etc )]\033[0m ";
+    ss << "\033[1;36m[Your answer should be in form (Option 1,Option 2,Option 3, ... etc )]\033[0m ";
     return ss.str();
 }
 
@@ -39,8 +39,7 @@ bool CMultipleChoiceAnswer::evaluate_answer()
 {
     if (format_error())
     {
-        std::cout << "\033[31m[ERROR] Wrong format for multiple choice answer.\033[0m" << std::endl;
-        throw std::invalid_argument("[ERROR] Wrong format for multiple choice answer.");
+        throw std::invalid_argument("\033[1;31m[ERROR] Wrong format for multiple choice answer.\033[0m");
     }
 
     if (m_correctAnswers.size() != m_userAnswer.size())

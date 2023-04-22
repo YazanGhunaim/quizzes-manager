@@ -10,7 +10,7 @@ std::string CTextAnswer::get_correctAnswer() const
 std::string CTextAnswer::format_info() const
 {
     std::stringstream ss;
-    ss << "\033[36m[Your answer should be in text form]\033[0m ";
+    ss << "\033[1;36m[Your answer should be in text form]\033[0m ";
     return ss.str();
 }
 
@@ -28,8 +28,7 @@ bool CTextAnswer::evaluate_answer()
 {
     if (format_error())
     {
-        std::cout << "\033[31m[ERROR] Wrong format for Text answer.\033[0m" << std::endl;
-        throw std::invalid_argument("[ERROR] Wrong format for text answer.");
+        throw std::invalid_argument("\033[1;31m[ERROR] Wrong format for text answer.\033[0m");
     }
     // convert both answers to lower case
     CAnswer::tolower(m_correctAnswer);

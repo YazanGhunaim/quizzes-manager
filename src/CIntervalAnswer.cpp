@@ -11,7 +11,7 @@ std::string CIntervalAnswer::get_correctAnswer() const
 std::string CIntervalAnswer::format_info() const
 {
     std::stringstream ss;
-    ss << "\033[36m[Your answer should be in interval form (X-X)]\033[0m ";
+    ss << "\033[1;36m[Your answer should be in interval form (X-X)]\033[0m ";
     return ss.str();
 }
 
@@ -30,8 +30,7 @@ bool CIntervalAnswer::evaluate_answer()
 {
     if (format_error())
     {
-        std::cout << "\033[31m[ERROR] Wrong format for interval answer.\033[0m" << std::endl;
-        throw std::invalid_argument("[ERROR] Wrong format for interval answer.");
+        throw std::invalid_argument("\033[1;31m[ERROR] Wrong format for interval answer.\033[0m");
     }
 
     std::string::size_type dashPos = m_userAnswer.find('-');
