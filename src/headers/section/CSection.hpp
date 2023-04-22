@@ -5,7 +5,7 @@
 
 class CSection
 {
-protected:
+private:
     std::string m_name;
     std::vector<std::shared_ptr<CQuestion>> m_questions;
     int m_score = 0;

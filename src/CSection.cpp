@@ -56,6 +56,6 @@ void CSection::display()
 
 void CSection::displayResults() const
 {
-    std::cout << "\033[1;36mSection: " << m_name << std::endl;
-    std::cout << "Score: " << m_score << "/" << m_questions.size() << "\033[0;0m" << std::endl;
+    std::cout << "\033[1;36mSection: " << getName() << std::endl;
+    std::cout << "Score: " << getScore() << "/" << totalQuestions() << "\033[0;0m" << std::endl;
 }
