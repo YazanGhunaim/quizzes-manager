@@ -1,7 +1,7 @@
 #include "headers/section/CSection.hpp"
 
 CSection::CSection(const std::string &name, const std::vector<std::shared_ptr<CQuestion>> &questions)
-    : m_name(name), m_questions(questions) {}
+    : m_name(name), m_questions(questions), m_status(false) {}
 
 CSection::~CSection()
 {
@@ -20,6 +20,16 @@ int CSection::totalQuestions() const
 std::string CSection::getName() const
 {
     return m_name;
+}
+
+bool CSection::getStatus() const
+{
+    return m_status;
+}
+
+void CSection::setStatus(const bool status)
+{
+    m_status = status;
 }
 
 void CSection::display()
@@ -44,7 +54,6 @@ void CSection::display()
                               << std::endl;
                 break;
             }
-            // my exception is std::invalid_argument
             catch (std::invalid_argument &e)
             {
                 std::cout << e.what() << std::endl;

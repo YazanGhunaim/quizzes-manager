@@ -8,6 +8,7 @@ private:
     std::string m_name;
     std::vector<std::shared_ptr<CSection>> m_sections;
     int m_score = 0;
+    bool m_status;
 
 public:
     CQuiz(const std::string &name, const std::vector<std::shared_ptr<CSection>> &sections);
@@ -15,8 +16,10 @@ public:
     int getScore() const;
     int totalSections() const;
     int totalQuestions() const;
-    std::string getName() const;
     void intro() const;
     void display();
     void displayResults() const;
+    void sectionChoice();
+    bool checkStatus();
+    std::string getName() const;
 };

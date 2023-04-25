@@ -29,6 +29,38 @@ std::string CQuiz::getName() const
 {
     return m_name;
 }
+
+void CQuiz::sectionChoice()
+{
+    std::cout << "\033[1mChoose a section: \033[0m" << std::endl;
+    std::string strChoice;
+    for (size_t i = 0; i < m_sections.size(); ++i)
+    {
+        if (m_sections[i]->getStatus() == false)
+            std::cout << "\033[1;33m" << i + 1 << ". " << m_sections[i]->getName()
+                      << " (consists of " << m_sections[i]->totalQuestions()
+                      << " total questions)\033[0m" << std::endl;
+    }
+
+    std::cout << "\033[1mSection: \033[0m";
+    std::getline(std::cin, strChoice);
+    if (strChoice.empty())
+    {
+        throw std::invalid_argument("\033[1;31mYou must choose!\033[0m");
+    }
+
+    size_t choice = std::stoi(strChoice) - 1;
+    if (choice >= m_sections.size() || choice < 0 || m_sections[choice]->getStatus() == true)
+    {
+        throw std::invalid_argument("\033[1;31mInvalid choice!\033[0m");
+    }
+
+    std::cout << std::endl;
+    m_sections[choice]->display();
+    m_sections[choice]->setStatus(true);
+    m_score += m_sections[choice]->getScore();
+}
+
 void CQuiz::intro() const
 {
     std::cout << "         \033[1;35mWelcome to " << getName() << std::endl;
@@ -37,13 +69,36 @@ void CQuiz::intro() const
               << std::endl;
 }
 
+bool CQuiz::checkStatus()
+{
+    for (const auto &sec : m_sections)
+    {
+        if (sec->getStatus() == false)
+        {
+            return false;
+        }
+    }
+    m_status = true;
+    return true;
+}
+
 void CQuiz::display()
 {
     intro();
-    for (auto &section : m_sections)
+    while (checkStatus() == false)
     {
-        section->display();
-        m_score += section->getScore();
+        try
+        {
+            sectionChoice();
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+        catch (...)
+        {
+            std::cerr << "Unknown error" << std::endl;
+        }
     }
 }
 

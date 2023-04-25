@@ -11,12 +11,6 @@
 
 int main()
 {
-    CAnswer *answer0 = new CMultipleChoiceAnswer{std::vector<std::string>{"usa", "germany"}};
-
-    std::shared_ptr<CQuestion> questionMC0 = std::make_shared<CTextQuestion>(
-        "what two countries fought in WW1?",
-        answer0);
-
     CAnswer *answer1 = new CMultipleChoiceAnswer{std::vector<std::string>{"usa", "germany"}};
 
     std::shared_ptr<CQuestion> questionMC1 = std::make_shared<CTextQuestion>(
