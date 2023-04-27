@@ -30,6 +30,23 @@ std::string CQuiz::getName() const
     return m_name;
 }
 
+void CQuiz::validSectionChoice(const std::string &choice)
+{
+    if (choice.empty())
+    {
+        throw std::invalid_argument("\033[1;31mYou must choose!\033[0m");
+    }
+    size_t choiceID = std::stoi(choice) - 1;
+    if (choiceID >= m_sections.size() || choiceID < 0 || m_sections[choiceID]->getStatus() == true)
+    {
+        throw std::invalid_argument("\033[1;31mInvalid choice!\033[0m");
+    }
+    std::cout << std::endl;
+    m_sections[choiceID]->display();
+    m_sections[choiceID]->setStatus(true);
+    m_score += m_sections[choiceID]->getScore();
+}
+
 void CQuiz::sectionChoice()
 {
     std::cout << "\033[1mChoose a section: \033[0m" << std::endl;
@@ -41,24 +58,14 @@ void CQuiz::sectionChoice()
                       << " (consists of " << m_sections[i]->totalQuestions()
                       << " total questions)\033[0m" << std::endl;
     }
-
     std::cout << "\033[1mSection: \033[0m";
     std::getline(std::cin, strChoice);
-    if (strChoice.empty())
-    {
-        throw std::invalid_argument("\033[1;31mYou must choose!\033[0m");
-    }
+    validSectionChoice(strChoice);
+}
 
-    size_t choice = std::stoi(strChoice) - 1;
-    if (choice >= m_sections.size() || choice < 0 || m_sections[choice]->getStatus() == true)
-    {
-        throw std::invalid_argument("\033[1;31mInvalid choice!\033[0m");
-    }
-
-    std::cout << std::endl;
-    m_sections[choice]->display();
-    m_sections[choice]->setStatus(true);
-    m_score += m_sections[choice]->getScore();
+void CQuiz::sectionChoiceView()
+{
+    sectionChoice();
 }
 
 void CQuiz::intro() const
