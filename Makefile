@@ -1,5 +1,5 @@
 CFLAGS = -Wall -pedantic -O2 -Wextra -fsanitize=address -g -std=c++17
-LFLAGS = -fsanitize=address
+LFLAGS = -fsanitize=address -lxml2
 SRC = $(wildcard src/*.cpp) # find all .cpp files in the src directory.
 
 OBJS = $(SRC:src/%.cpp=obj/%.o) 
