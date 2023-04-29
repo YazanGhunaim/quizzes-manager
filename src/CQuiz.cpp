@@ -70,6 +70,7 @@ void CQuiz::sectionChoiceView()
 
 void CQuiz::intro() const
 {
+    std::cout << std::endl;
     std::cout << "         \033[1;35mWelcome to " << getName() << std::endl;
     std::cout << "There are " << totalSections() << " sections and " << totalQuestions() << " questions in total." << std::endl;
     std::cout << "    👀 Let's see how much you know! 👀\033[0m\n"
