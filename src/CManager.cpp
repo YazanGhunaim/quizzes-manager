@@ -36,11 +36,7 @@ void CManager::display() const
     {
         int choice = getQuizChoice();
         m_quizzes[choice]->display();
-        std::cout << "would yo like to evaluate" << std::endl;
-        bool evaluate;
-        std::cin >> evaluate;
-        if (evaluate)
-            m_quizzes[choice]->displayResults();
+        m_quizzes[choice]->displayResults();
     }
     catch (const std::invalid_argument &e)
     {
