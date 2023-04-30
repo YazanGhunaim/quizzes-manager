@@ -10,9 +10,6 @@ private:
     int m_score = 0;
     bool m_status;
 
-    void sectionChoice();
-    void validSectionChoice(const std::string &choice);
-
 public:
     CQuiz(const std::string &name, const std::vector<std::shared_ptr<CSection>> &sections);
     ~CQuiz();
@@ -25,4 +22,8 @@ public:
     void sectionChoiceView();
     bool checkStatus();
     std::string getName() const;
+
+private:
+    void sectionChoice();
+    void validSectionChoice(const std::string &choice);
 };

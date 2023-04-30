@@ -9,7 +9,7 @@ private:
     std::vector<std::shared_ptr<CQuiz>> m_quizzes;
 
 public:
-    CManager(const std::vector<std::shared_ptr<CQuiz>> &quizzes);
+    explicit CManager(const std::vector<std::shared_ptr<CQuiz>> &quizzes);
     ~CManager();
     void display() const;
     void evaluate() const;
