@@ -1,7 +1,14 @@
 #include "headers/manager/CManager.hpp"
 
-CManager::CManager(const std::vector<std::shared_ptr<CQuiz>> &quizzes)
-    : m_quizzes(quizzes) {}
+CManager::CManager(const std::vector<std::string> &filePaths)
+    : m_filePaths(filePaths)
+{
+    for (const auto &filePath : m_filePaths)
+    {
+        m_parser = CXMLParser{filePath};
+        m_quizzes.push_back(m_parser.parse());
+    }
+}
 
 CManager::~CManager() {}
 
@@ -50,10 +57,7 @@ void CManager::display() const
     }
 }
 
-void CManager::evaluate() const
+void CManager::run() const
 {
-    for (const auto &quiz : m_quizzes)
-    {
-        quiz->displayResults();
-    }
+    display();
 }
