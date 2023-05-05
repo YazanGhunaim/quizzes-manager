@@ -1,6 +1,4 @@
 #include <iostream>
-#include "headers/parser/CXMLParser.hpp"
-#include "headers/quiz/CQuiz.hpp"
 #include "headers/manager/CManager.hpp"
 
 int main()
