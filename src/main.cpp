@@ -1,10 +1,19 @@
 #include <iostream>
 #include "headers/manager/CManager.hpp"
 #include "headers/builder/CXMLBuilder.hpp"
+#include <filesystem>
 
 int main()
 {
-    std::vector<std::string> filePaths{"src/xml/main.xml", "src/xml/temp.xml", "src/xml/custom.xml",""};
+    std::vector<std::string> filePaths;
+    const std::string dirPath = "src/xml";
+    for (const auto &entry : std::filesystem::directory_iterator(dirPath))
+    {
+        if (entry.is_regular_file())
+        {
+            filePaths.push_back(entry.path().string());
+        }
+    }
     CManager manager{filePaths};
     manager.display();
     // Create a new quiz
