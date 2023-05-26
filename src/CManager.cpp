@@ -79,6 +79,7 @@ void CManager::getCorrectAnswer(std::vector<std::string> &vec, bool prompt) cons
         {
             std::cout << "\033[1;32mPlease enter the correct answer:\033[0m ";
             std::string answer;
+            std::cin.ignore();
             std::getline(std::cin, answer);
             if (answer.empty())
             {
@@ -198,7 +199,7 @@ void CManager::build() const
     std::string name = getQuizName();
     CXMLBuilder builder{name};
     sections(builder);
-    builder.save_quiz("custom.xml");
+    builder.save_quiz(builder.get_name() + ".xml");
 }
 
 void CManager::display() const

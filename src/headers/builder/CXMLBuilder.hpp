@@ -16,55 +16,60 @@ class CXMLBuilder
 {
 
 private:
-    xmlNodePtr quiz_node_ = NULL;
-    xmlNodePtr current_section_node_ = NULL;
-    xmlNodePtr current_question_node_ = NULL;
+    xmlNodePtr m_quizNode = NULL;
+    xmlNodePtr m_currectSectionNode = NULL;
+    xmlNodePtr m_currentQuestionNode = NULL;
+    std::string m_title;
 
 public:
-    CXMLBuilder() {}
-    explicit CXMLBuilder(const std::string &title)
+    explicit CXMLBuilder(const std::string &title) : m_title(title)
     {
         // Create the top-level quiz node
         xmlDocPtr doc = xmlNewDoc(BAD_CAST "1.0");
-        quiz_node_ = xmlNewNode(NULL, BAD_CAST "quiz");
-        xmlNewProp(quiz_node_, BAD_CAST "title", BAD_CAST title.c_str());
-        xmlDocSetRootElement(doc, quiz_node_);
+        m_quizNode = xmlNewNode(NULL, BAD_CAST "quiz");
+        xmlNewProp(m_quizNode, BAD_CAST "title", BAD_CAST title.c_str());
+        xmlDocSetRootElement(doc, m_quizNode);
+    }
+
+    std::string get_name() const
+    {
+        return m_title;
     }
 
     void add_section(const std::string &name)
     {
         // Add a new section to the quiz
-        xmlNodePtr section_node = xmlNewChild(quiz_node_, NULL, BAD_CAST "section", NULL);
+        xmlNodePtr section_node = xmlNewChild(m_quizNode, NULL, BAD_CAST "section", NULL);
         xmlNewProp(section_node, BAD_CAST "title", BAD_CAST name.c_str());
 
         // Update the current section pointer
-        current_section_node_ = section_node;
+        m_currectSectionNode = section_node;
     }
 
     void add_question(const std::string &type, const std::string &text)
     {
         // Add a new question to the current section
-        xmlNodePtr question_node = xmlNewChild(current_section_node_, NULL, BAD_CAST "question", NULL);
+        xmlNodePtr question_node = xmlNewChild(m_currectSectionNode, NULL, BAD_CAST "question", NULL);
         xmlNewProp(question_node, BAD_CAST "type", BAD_CAST type.c_str());
 
         // Add the question text
         xmlNodePtr text_node = xmlNewChild(question_node, NULL, BAD_CAST "text", BAD_CAST text.c_str());
 
         // Update the current question pointer
-        current_question_node_ = question_node;
+        m_currentQuestionNode = question_node;
     }
 
     void add_option(const std::string &text)
     {
         // Add a new option to the current question
-        xmlNodePtr options_node = xmlNewChild(current_question_node_, NULL, BAD_CAST "options", NULL);
+        xmlNodePtr options_node = xmlNewChild(m_currentQuestionNode, NULL, BAD_CAST "options", NULL);
         xmlNodePtr text_node = xmlNewChild(options_node, NULL, BAD_CAST "text", BAD_CAST text.c_str());
     }
 
     void add_answer(const std::string &type, const std::vector<std::string> &answer_texts)
     {
         // Add a new answer to the current question
-        xmlNodePtr answer_node = xmlNewChild(current_question_node_, NULL, BAD_CAST "answer", NULL);
+        xmlNodePtr answer_node = xmlNewChild(m_currentQuestionNode, NULL, BAD_CAST "answer", NULL);
         xmlNewProp(answer_node, BAD_CAST "type", BAD_CAST type.c_str());
 
         // Add each answer text as a separate node
@@ -80,8 +85,8 @@ public:
         std::string file_path = "src/xml/" + filename;
 
         // Save the quiz to an XML file at the specified location
-        xmlSaveFormatFileEnc(file_path.c_str(), quiz_node_->doc, "UTF-8", 1);
-        xmlFreeDoc(quiz_node_->doc);
+        xmlSaveFormatFileEnc(file_path.c_str(), m_quizNode->doc, "UTF-8", 1);
+        xmlFreeDoc(m_quizNode->doc);
         xmlCleanupParser();
     }
 };

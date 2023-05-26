@@ -4,7 +4,7 @@
 
 int main()
 {
-    std::vector<std::string> filePaths{"src/xml/main.xml", "src/xml/temp.xml", "src/xml/custom.xml"};
+    std::vector<std::string> filePaths{"src/xml/main.xml", "src/xml/temp.xml", "src/xml/custom.xml",""};
     CManager manager{filePaths};
     manager.display();
     // Create a new quiz
