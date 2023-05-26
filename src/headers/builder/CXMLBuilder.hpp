@@ -21,7 +21,8 @@ private:
     xmlNodePtr current_question_node_ = NULL;
 
 public:
-    CXMLBuilder(const std::string &title)
+    CXMLBuilder() {}
+    explicit CXMLBuilder(const std::string &title)
     {
         // Create the top-level quiz node
         xmlDocPtr doc = xmlNewDoc(BAD_CAST "1.0");

@@ -3,6 +3,7 @@
 #include <iostream>
 #include "../quiz/CQuiz.hpp"
 #include "../parser/CXMLParser.hpp"
+#include "../builder/CXMLBuilder.hpp"
 
 class CManager
 {
@@ -18,5 +19,13 @@ public:
     void run() const;
 
 private:
+    void getCorrectAnswer(std::vector<std::string> &vec, bool prompt = false) const;
+    void answers(CXMLBuilder &builder) const;
+    void textQuestion(CXMLBuilder &builder) const;
+    void questions(CXMLBuilder &builder) const;
+    void sections(CXMLBuilder &builder) const;
+    std::string getSectionName() const;
+    std::string getQuizName() const;
     size_t getQuizChoice() const;
+    void build() const;
 };

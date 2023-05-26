@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz title="are you gay">
+  <section title="coming out">
+    <question type="text">
+      <text>are you gay</text>
+      <answer type="T/F">
+        <text>true</text>
+      </answer>
+    </question>
+  </section>
+</quiz>
