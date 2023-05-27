@@ -44,7 +44,6 @@ std::string CManager::getSectionName() const
 {
     std::string name;
     std::getline(std::cin, name);
-    // std::cin.ignore();
     if (name.empty())
     {
         throw std::invalid_argument("\033[1;31m[ERROR]You must enter a name!\033[0m");
@@ -58,7 +57,6 @@ void CManager::getCorrectAnswer(std::vector<std::string> &vec, bool prompt) cons
     {
         std::cout << "\033[1;32mPlease enter the correct answer:\033[0m ";
         std::string answer;
-        // std::cin.ignore();
         std::getline(std::cin, answer);
         if (answer.empty())
         {
@@ -70,15 +68,17 @@ void CManager::getCorrectAnswer(std::vector<std::string> &vec, bool prompt) cons
     {
         std::cout << "\033[1;32mPlease enter the number of correct answer:\033[0m ";
         int number;
-        std::cin >> number;
-        std::cin.ignore();
-        if (number <= 0)
+        while (!(std::cin >> number) || number < 1)
         {
-            throw std::invalid_argument("\033[1;31m[ERROR]You must enter a number!\033[0m");
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard input buffer up to and including newline
+            std::cout << "\033[1;31m[ERROR]Invalid input! Please enter a positive integer:\033[0m ";
         }
+        std::cin.ignore();
+
         for (int i = 0; i < number; ++i)
         {
-            std::cout << "\033[1;32mPlease enter correct answer number " << i + 1 << ":\033[0m ";
+            std::cout << "\033[1;32m\nPlease enter correct answer number " << i + 1 << ":\033[0m ";
             std::string answer;
             std::getline(std::cin, answer);
             if (answer.empty())
@@ -92,6 +92,7 @@ void CManager::getCorrectAnswer(std::vector<std::string> &vec, bool prompt) cons
 
 void CManager::answers(CXMLBuilder &builder) const
 {
+    std::cout << std::endl;
     std::cout << "\033[1;32mSpecify type of answer\033[0m" << std::endl;
     std::cout << "\033[1;33m1-Interval Answer\033[0m" << std::endl;
     std::cout << "\033[1;33m2-Multiple Answers\033[0m" << std::endl;
@@ -100,12 +101,13 @@ void CManager::answers(CXMLBuilder &builder) const
 
     std::cout << "\033[1;32mPlease enter the type of answer: \033[0m ";
     int answerType = 0;
-    std::cin >> answerType;
-    std::cin.ignore();
-    if (answerType <= 0 || answerType > 4)
+    while (!(std::cin >> answerType) || answerType < 1 || answerType > 4) // loop until an integer is entered
     {
-        throw std::invalid_argument("\033[1;31m[ERROR]Invalid answer type!\033[0m");
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard input buffer up to and including newline
+        std::cout << "\033[1;31m[ERROR]Invalid input! Please enter a positive integer:\033[0m ";
     }
+    std::cin.ignore();
 
     std::vector<std::string> correctAnswer;
     switch (answerType)
@@ -133,7 +135,6 @@ void CManager::textQuestion(CXMLBuilder &builder) const
 {
     std::cout << "\033[1;32mPlease enter the question:\033[0m ";
     std::string question;
-    // std::cin.ignore();
     std::getline(std::cin, question);
     if (question.empty())
     {
@@ -146,16 +147,17 @@ void CManager::textQuestion(CXMLBuilder &builder) const
 void CManager::questions(CXMLBuilder &builder) const
 {
     std::cout << "\033[1;32mPlease enter the number of questions you would like to add:\033[0m ";
-    int questions;
-    std::cin >> questions;
-    std::cin.ignore();
-    if (questions <= 0)
+    int questions = 1;
+    while (!(std::cin >> questions) || questions < 1) // loop until an integer is entered
     {
-        throw std::invalid_argument("\033[1;31m[ERROR]Invalid number of questions!\033[0m");
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard input buffer up to and including newline
+        std::cout << "\033[1;31m[ERROR]Invalid input! Please enter a positive integer:\033[0m ";
     }
-
+    std::cin.ignore();
     for (int i = 0; i < questions; ++i)
     {
+        std::cout << std::endl;
         std::cout << "\033[1;32mSpecify type of question " << i + 1 << ":\033[0m" << std::endl;
         std::cout << "\033[1;33m1-Single Choice\033[0m" << std::endl;
         std::cout << "\033[1;33m2-Multiple Choice\033[0m" << std::endl;
@@ -163,13 +165,13 @@ void CManager::questions(CXMLBuilder &builder) const
 
         std::cout << "\033[1;32mPlease enter the number of question type: \033[0m ";
         int questionType = 0;
-        std::cin >> questionType;
-        std::cin.ignore();
-        if (questionType <= 0 || questionType > 3)
+        while (!(std::cin >> questionType) || questionType > 3 || questionType < 1)
         {
-            throw std::invalid_argument("\033[1;31m[ERROR]Invalid question type!\033[0m");
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard input buffer up to and including newline
+            std::cout << "\033[1;31m[ERROR]Invalid input! Please enter a valid positive integer:\033[0m ";
         }
-
+        std::cin.ignore();
         if (questionType == 3)
         {
             textQuestion(builder);
@@ -180,8 +182,13 @@ void CManager::questions(CXMLBuilder &builder) const
 void CManager::sections(CXMLBuilder &builder) const
 {
     std::cout << "\033[1;32mPlease enter the number of sections you would like to add:\033[0m ";
-    int sections;
-    std::cin >> sections;
+    int sections = 1;
+    while (!(std::cin >> sections) || sections < 1) // loop until an integer is entered
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard input buffer up to and including newline
+        std::cout << "\033[1;31m[ERROR]Invalid input! Please enter a positive integer:\033[0m ";
+    }
     std::cin.ignore();
     if (sections <= 0)
     {
@@ -190,7 +197,7 @@ void CManager::sections(CXMLBuilder &builder) const
 
     for (int i = 0; i < sections; ++i)
     {
-        std::cout << "\033[1;32mPlease enter the name of section " << i + 1 << ":\033[0m ";
+        std::cout << "\033[1;32m\nPlease enter the name of section " << i + 1 << ":\033[0m ";
         builder.add_section(getSectionName());
         questions(builder);
     }
@@ -199,10 +206,19 @@ void CManager::sections(CXMLBuilder &builder) const
 void CManager::build() const
 {
     std::cout << "\n\033[1;36mWelcome to the quiz builder!\033[0m" << std::endl;
-    std::string name = getQuizName();
-    CXMLBuilder builder{name};
-    sections(builder);
-    builder.save_quiz(builder.get_name() + ".xml");
+    std::string name;
+    try
+    {
+        name = getQuizName();
+        CXMLBuilder builder{name};
+        sections(builder);
+        builder.save_quiz(builder.get_name() + ".xml");
+    }
+    catch (const std::exception &e)
+    {
+        std::cout << e.what() << std::endl;
+        build();
+    }
 }
 
 void CManager::display() const

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<quiz title="test quiz">
+<quiz title="main quiz">
     <section title="world war knowledge">
         <question type="text">
             <text>Germany won WW1</text>
