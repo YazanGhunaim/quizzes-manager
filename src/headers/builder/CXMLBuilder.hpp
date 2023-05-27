@@ -53,7 +53,7 @@ public:
         xmlNewProp(question_node, BAD_CAST "type", BAD_CAST type.c_str());
 
         // Add the question text
-        xmlNodePtr text_node = xmlNewChild(question_node, NULL, BAD_CAST "text", BAD_CAST text.c_str());
+        xmlNewChild(question_node, NULL, BAD_CAST "text", BAD_CAST text.c_str());
 
         // Update the current question pointer
         m_currentQuestionNode = question_node;
@@ -63,7 +63,7 @@ public:
     {
         // Add a new option to the current question
         xmlNodePtr options_node = xmlNewChild(m_currentQuestionNode, NULL, BAD_CAST "options", NULL);
-        xmlNodePtr text_node = xmlNewChild(options_node, NULL, BAD_CAST "text", BAD_CAST text.c_str());
+        xmlNewChild(options_node, NULL, BAD_CAST "text", BAD_CAST text.c_str());
     }
 
     void add_answer(const std::string &type, const std::vector<std::string> &answer_texts)
@@ -75,7 +75,7 @@ public:
         // Add each answer text as a separate node
         for (const auto &answer_text : answer_texts)
         {
-            xmlNodePtr text_node = xmlNewChild(answer_node, NULL, BAD_CAST "text", BAD_CAST answer_text.c_str());
+            xmlNewChild(answer_node, NULL, BAD_CAST "text", BAD_CAST answer_text.c_str());
         }
     }
 

@@ -23,7 +23,7 @@ private:
         m_questionTypes = {
             {"text",
              [](const std::string &title, CAnswer *answer,
-                const std::vector<std::string> &options)
+                [[maybe_unused]] const std::vector<std::string> &options)
              {
                  return std::make_shared<CTextQuestion>(title, answer);
              }},
