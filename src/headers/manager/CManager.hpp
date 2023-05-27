@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <filesystem>
 #include "../quiz/CQuiz.hpp"
 #include "../parser/CXMLParser.hpp"
 #include "../builder/CXMLBuilder.hpp"
@@ -13,15 +14,18 @@ private:
     CXMLParser m_parser;
 
 public:
-    explicit CManager(const std::vector<std::string> &filePaths);
+    explicit CManager();
     ~CManager();
     void display() const;
     void run() const;
 
 private:
     void getCorrectAnswer(std::vector<std::string> &vec, bool prompt = false) const;
+    void options(CXMLBuilder &builder) const;
     void answers(CXMLBuilder &builder) const;
     void textQuestion(CXMLBuilder &builder) const;
+    void singleQuestion(CXMLBuilder &builder) const;
+    void multiQuestion(CXMLBuilder &builder) const;
     void questions(CXMLBuilder &builder) const;
     void sections(CXMLBuilder &builder) const;
     std::string getSectionName() const;

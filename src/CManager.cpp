@@ -1,8 +1,16 @@
 #include "headers/manager/CManager.hpp"
 
-CManager::CManager(const std::vector<std::string> &filePaths)
-    : m_filePaths(filePaths)
+CManager::CManager()
 {
+    const std::string dirPath = "src/xml";
+    for (const auto &entry : std::filesystem::directory_iterator(dirPath))
+    {
+        if (entry.is_regular_file())
+        {
+            m_filePaths.push_back(entry.path().string());
+        }
+    }
+
     for (const auto &filePath : m_filePaths)
     {
         m_parser = CXMLParser{filePath};
@@ -144,6 +152,59 @@ void CManager::textQuestion(CXMLBuilder &builder) const
     answers(builder);
 }
 
+void CManager::singleQuestion(CXMLBuilder &builder) const
+{
+    std::cout << "\033[1;32mPlease enter the question:\033[0m ";
+    std::string question;
+    std::getline(std::cin, question);
+    if (question.empty())
+    {
+        throw std::invalid_argument("\033[1;31m[ERROR]You must enter a question!\033[0m");
+    }
+    builder.add_question("single", question);
+    options(builder);
+    answers(builder);
+}
+
+void CManager::multiQuestion(CXMLBuilder &builder) const
+{
+    std::cout << "\033[1;32mPlease enter the question:\033[0m ";
+    std::string question;
+    std::getline(std::cin, question);
+    if (question.empty())
+    {
+        throw std::invalid_argument("\033[1;31m[ERROR]You must enter a question!\033[0m");
+    }
+    builder.add_question("multi", question);
+    options(builder);
+    answers(builder);
+}
+
+void CManager::options(CXMLBuilder &builder) const
+{
+    std::cout << "\033[1;32mPlease enter the number of options you would like to add:\033[0m ";
+    int options = 1;
+    while (!(std::cin >> options) || options < 1)
+    {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "\033[1;31m[ERROR]Invalid input! Please enter a positive integer:\033[0m ";
+    }
+    std::cin.ignore();
+
+    for (int i = 0; i < options; ++i)
+    {
+        std::cout << "\033[1;32m\nPlease enter option number " << i + 1 << ":\033[0m ";
+        std::string option;
+        std::getline(std::cin, option);
+        if (option.empty())
+        {
+            throw std::invalid_argument("\033[1;31m[ERROR]You must enter an option!\033[0m");
+        }
+        builder.add_option(option);
+    }
+}
+
 void CManager::questions(CXMLBuilder &builder) const
 {
     std::cout << "\033[1;32mPlease enter the number of questions you would like to add:\033[0m ";
@@ -172,10 +233,13 @@ void CManager::questions(CXMLBuilder &builder) const
             std::cout << "\033[1;31m[ERROR]Invalid input! Please enter a valid positive integer:\033[0m ";
         }
         std::cin.ignore();
-        if (questionType == 3)
-        {
+
+        if (questionType == 1)
+            singleQuestion(builder);
+        else if (questionType == 2)
+            multiQuestion(builder);
+        else
             textQuestion(builder);
-        }
     }
 }
 
