@@ -22,7 +22,7 @@ public:
 private:
     void getCorrectAnswer(std::vector<std::string> &vec, bool prompt = false) const;
     void options(CXMLBuilder &builder) const;
-    void answers(CXMLBuilder &builder) const;
+    void answers(CXMLBuilder &builder, bool single = false) const;
     void textQuestion(CXMLBuilder &builder) const;
     void singleQuestion(CXMLBuilder &builder) const;
     void multiQuestion(CXMLBuilder &builder) const;

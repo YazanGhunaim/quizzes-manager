@@ -98,44 +98,82 @@ void CManager::getCorrectAnswer(std::vector<std::string> &vec, bool prompt) cons
     }
 }
 
-void CManager::answers(CXMLBuilder &builder) const
+void CManager::answers(CXMLBuilder &builder, bool single) const
 {
-    std::cout << std::endl;
-    std::cout << "\033[1;32mSpecify type of answer\033[0m" << std::endl;
-    std::cout << "\033[1;33m1-Interval Answer\033[0m" << std::endl;
-    std::cout << "\033[1;33m2-Multiple Answers\033[0m" << std::endl;
-    std::cout << "\033[1;33m3-Text Answer\033[0m" << std::endl;
-    std::cout << "\033[1;33m4-True False Answer\033[0m" << std::endl;
-
-    std::cout << "\033[1;32mPlease enter the type of answer: \033[0m ";
-    int answerType = 0;
-    while (!(std::cin >> answerType) || answerType < 1 || answerType > 4) // loop until an integer is entered
+    if (single)
     {
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard input buffer up to and including newline
-        std::cout << "\033[1;31m[ERROR]Invalid input! Please enter a positive integer:\033[0m ";
+        std::cout << std::endl;
+        std::cout << "\033[1;32mSpecify type of answer\033[0m" << std::endl;
+        std::cout << "\033[1;33m1-Interval Answer\033[0m" << std::endl;
+        std::cout << "\033[1;33m2-Text Answer\033[0m" << std::endl;
+        std::cout << "\033[1;33m3-True False Answer\033[0m" << std::endl;
+
+        std::cout << "\033[1;32mPlease enter the type of answer: \033[0m ";
+        int answerType = 0;
+        while (!(std::cin >> answerType) || answerType < 1 || answerType > 3) // loop until an integer is entered
+        {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard input buffer up to and including newline
+            std::cout << "\033[1;31m[ERROR]Invalid input! Please enter a positive integer:\033[0m ";
+        }
+        std::cin.ignore();
+
+        std::vector<std::string> correctAnswer;
+        switch (answerType)
+        {
+        case 1:
+            getCorrectAnswer(correctAnswer);
+            builder.add_answer("interval", correctAnswer);
+            break;
+        case 2:
+            getCorrectAnswer(correctAnswer);
+            builder.add_answer("text", correctAnswer);
+            break;
+        case 3:
+            getCorrectAnswer(correctAnswer);
+            builder.add_answer("T/F", correctAnswer);
+            break;
+        }
     }
-    std::cin.ignore();
-
-    std::vector<std::string> correctAnswer;
-    switch (answerType)
+    else
     {
-    case 1:
-        getCorrectAnswer(correctAnswer);
-        builder.add_answer("interval", correctAnswer);
-        break;
-    case 2:
-        getCorrectAnswer(correctAnswer, true);
-        builder.add_answer("multi", correctAnswer);
-        break;
-    case 3:
-        getCorrectAnswer(correctAnswer);
-        builder.add_answer("text", correctAnswer);
-        break;
-    case 4:
-        getCorrectAnswer(correctAnswer);
-        builder.add_answer("T/F", correctAnswer);
-        break;
+        std::cout << std::endl;
+        std::cout << "\033[1;32mSpecify type of answer\033[0m" << std::endl;
+        std::cout << "\033[1;33m1-Interval Answer\033[0m" << std::endl;
+        std::cout << "\033[1;33m2-Multiple Answers\033[0m" << std::endl;
+        std::cout << "\033[1;33m3-Text Answer\033[0m" << std::endl;
+        std::cout << "\033[1;33m4-True False Answer\033[0m" << std::endl;
+
+        std::cout << "\033[1;32mPlease enter the type of answer: \033[0m ";
+        int answerType = 0;
+        while (!(std::cin >> answerType) || answerType < 1 || answerType > 4) // loop until an integer is entered
+        {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard input buffer up to and including newline
+            std::cout << "\033[1;31m[ERROR]Invalid input! Please enter a positive integer:\033[0m ";
+        }
+        std::cin.ignore();
+
+        std::vector<std::string> correctAnswer;
+        switch (answerType)
+        {
+        case 1:
+            getCorrectAnswer(correctAnswer);
+            builder.add_answer("interval", correctAnswer);
+            break;
+        case 2:
+            getCorrectAnswer(correctAnswer, true);
+            builder.add_answer("multi", correctAnswer);
+            break;
+        case 3:
+            getCorrectAnswer(correctAnswer);
+            builder.add_answer("text", correctAnswer);
+            break;
+        case 4:
+            getCorrectAnswer(correctAnswer);
+            builder.add_answer("T/F", correctAnswer);
+            break;
+        }
     }
 }
 
@@ -163,7 +201,7 @@ void CManager::singleQuestion(CXMLBuilder &builder) const
     }
     builder.add_question("single", question);
     options(builder);
-    answers(builder);
+    answers(builder, true);
 }
 
 void CManager::multiQuestion(CXMLBuilder &builder) const
