@@ -23,7 +23,7 @@ $(EXEC): $(OBJS)
 	g++ $(LFLAGS) $^ -o $@
 
 clean:
-	rm -rf obj $(EXEC) $(DEPS) $(LOGIN)
+	rm -rf obj $(EXEC) $(DEPS) $(LOGIN) dependencies.make
 
 run: compile
 	./$(LOGIN)

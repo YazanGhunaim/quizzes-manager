@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz title="trivia">
+  <section title="world war trivia">
+    <question type="single">
+      <text>Which one of the following concentration camps was considered the main site of the holocaust?</text>
+      <options>
+        <text>Aushwitz camp</text>
+      </options>
+      <options>
+        <text>FIT CVUT</text>
+      </options>
+      <options>
+        <text>Dachau</text>
+      </options>
+      <answer type="text">
+        <text>Aushwitz camp</text>
+      </answer>
+    </question>
+    <question type="multi">
+      <text>Which countries were involved in WW1?</text>
+      <options>
+        <text>Argentina</text>
+      </options>
+      <options>
+        <text>Germany</text>
+      </options>
+      <options>
+        <text>Japan</text>
+      </options>
+      <options>
+        <text>USA</text>
+      </options>
+      <options>
+        <text>Paraguay</text>
+      </options>
+      <answer type="multi">
+        <text>Germany</text>
+        <text>Japan</text>
+        <text>USA</text>
+      </answer>
+    </question>
+    <question type="text">
+      <text>In a Nazi concentration camp, a pink triangle identified a prisoner as?</text>
+      <answer type="text">
+        <text>Homosexual</text>
+      </answer>
+    </question>
+  </section>
+  <section title="C++ Programming">
+    <question type="text">
+      <text>what keyword is used to indicate that a function cannot throw an exception?</text>
+      <answer type="text">
+        <text>noexcept</text>
+      </answer>
+    </question>
+    <question type="single">
+      <text>Whats is an iterator in C++?</text>
+      <options>
+        <text>Reference</text>
+      </options>
+      <options>
+        <text>An object in which we can iterate over</text>
+      </options>
+      <options>
+        <text>Pointer</text>
+      </options>
+      <answer type="text">
+        <text>Pointer</text>
+      </answer>
+    </question>
+    <question type="multi">
+      <text>which keyword allows the use of a method of a class without creating an instance of the class</text>
+      <options>
+        <text>abstract</text>
+      </options>
+      <options>
+        <text>static</text>
+      </options>
+      <options>
+        <text>explicit</text>
+      </options>
+      <answer type="text">
+        <text>static</text>
+      </answer>
+    </question>
+  </section>
+  <section title="Geography">
+    <question type="text">
+      <text>Amman is the capital of Jordan</text>
+      <answer type="T/F">
+        <text>true</text>
+      </answer>
+    </question>
+    <question type="single">
+      <text>How long did it take for the continents to split?</text>
+      <options>
+        <text>30000000-120000000</text>
+      </options>
+      <options>
+        <text>40000-600000</text>
+      </options>
+      <options>
+        <text>2-5</text>
+      </options>
+      <answer type="interval">
+        <text>30000000-120000000</text>
+      </answer>
+    </question>
+    <question type="multi">
+      <text>What cities are not capital cities?</text>
+      <options>
+        <text>Kyoto</text>
+      </options>
+      <options>
+        <text>Paris</text>
+      </options>
+      <options>
+        <text>Istanbul</text>
+      </options>
+      <options>
+        <text>Dubai</text>
+      </options>
+      <answer type="multi">
+        <text>Kyoto</text>
+        <text>Istanbul</text>
+        <text>Dubai</text>
+      </answer>
+    </question>
+  </section>
+</quiz>
