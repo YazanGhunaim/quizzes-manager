@@ -54,6 +54,8 @@ A class Section which is a collection of questions, these sections can be displa
 
 A class Quiz which is the core building block of the application, this is a collection of sections which makes use of functionalities already built by all previous classes, the user is welcomed to the quiz and prompted which section he would like to start with and moves on to answering each question of each section, which after all sections related to a quiz are done, he receives his/her final evaluation.
 
+A class CManager which holds everything together, provides interfaces for the entire app, displaying available quizzes, providing interfaces for different options such as creating of quiz and is overall what interacts with every aspect of the application.
+
 # XML parsing/building
 The CXMLParser class is a C++ class that provides functionality for parsing an XML file containing quiz data and constructing a quiz object from the parsed data using the libxml2 library.
 The main method of the CXMLParser class is the parse() method, which reads the XML file, extracts the quiz title, sections, and questions, and creates a quiz object.
@@ -61,8 +63,6 @@ This method calls several other private methods to extract different parts of th
 The CXMLParser class also has several private methods for extracting different parts of the quiz data, such as the setup() method for initializing the parser context and parsing the XML file, the addToQuestVec() method for adding a new question to the vector of questions in a section, the getOptions() method for extracting the options for a question from the XML node, and the getQuestions() method for extracting the details of a question from an XML node and adding it to the vector of questions.  Overall, the CXMLParser class provides a convenient way to parse XML files containing quiz data and construct a quiz object from the parsed data.
 
 A class CXMLBuilder that provides functionality in which a user can from the terminal, create his own custom quiz which will be saved as an XML, without the need to have any XML knowledge however must follow and know the types of questions and answers and how they should be formatted.
-
-A class CManager which holds everything together, provides interfaces for the entire app, displaying available quizzes, providing interfaces for different options such as creating of quiz and is overall what interacts with every aspect of the application.
 
 # Makefile
 To build the application make use of command 
