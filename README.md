@@ -69,6 +69,9 @@ Overall, the CXMLParser class provides a convenient way to parse XML files conta
 A class CXMLBuilder that provides functionality in which a user can from the terminal, create his own custom quiz which will be saved as an XML, without the need to have any XML knowledge however must follow and know the types of questions and answers and how they should be formatted.
 
 # Makefile
+To download required libraries before building the application (linux)
+
+	make install.
 To build the application make use of command 
 	
 	make run.
