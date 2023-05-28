@@ -9,10 +9,12 @@ The project makes use of proper OOP-Principles and functionalities such as abstr
 An abstract class Answer representing answers to questions, to which 4 types of answers are derived from:
 
 1- Interval answers (X-X such that X is a number) 
-    ex: 2010-2020
+    
+    	ex: 2010-2020
 
 2- Multiple answers 
-    ex: apples,oranges,bananas
+    
+    	ex: apples,oranges,bananas
 
 4- True/False answers
 
@@ -22,9 +24,12 @@ These answers can be combined to different types of questions that will be menti
 
 An abstract class Question representing questions, to which 3 types  of questions are derived from:
 
-1- Text Question ex: who was the inventor of the first lightbulb
+1- Text Question
+	
+	ex: who was the inventor of the first lightbulb
 
 2- Single Choice Question 
+
 	ex: Who was the inventor of the first light bulb?
 		A: Thomas Edison
 		B: Nikola Tesla
