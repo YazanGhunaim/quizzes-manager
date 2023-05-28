@@ -24,6 +24,10 @@ clean:
 run: $(EXEC)
 	./$(EXEC)
 
+install:
+	@echo "Downloading and installing libxml2..."
+	sudo apt-get update && sudo apt-get install -y libxml2-dev
+
 .PHONY: all clean run
 
 $(DEPS): # create the obj directory if it doesn't exist.
