@@ -8,9 +8,14 @@ The project makes use of proper OOP-Principles and functionalities such as abstr
 
 An abstract class Answer representing answers to questions, to which 4 types of answers are derived from:
 
-1- Interval answers (X-X such that X is a number) ex: 2010-2020
-2- Multiple answers ex: apples,oranges,bananas
+1- Interval answers (X-X such that X is a number) 
+    ex: 2010-2020
+
+2- Multiple answers 
+    ex: apples,oranges,bananas
+
 4- True/False answers
+
 3- Text Answers
 
 These answers can be combined to different types of questions that will be mentioned later on.
@@ -30,10 +35,12 @@ An abstract class Question representing questions, to which 3 types  of question
 These questions can be paired with different types of answers, here are some examples
 
 Text question with multiple answers:
+
 	Name the two days in the weekend:
 	Saturday, sunday
 
 Single choice question with interval answers:
+
 	When did WW1 take place:
 	1914-1918
 	2021-2022
