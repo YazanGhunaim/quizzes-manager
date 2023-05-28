@@ -60,7 +60,7 @@ void CXMLBuilder::add_answer(const std::string &type, const std::vector<std::str
 void CXMLBuilder::save_quiz(const std::string &filename)
 {
     // Determine the full path to the output file
-    std::string file_path = "src/xml/" + filename;
+    std::string file_path = "examples/xml/" + filename;
 
     // Save the quiz to an XML file at the specified location
     xmlSaveFormatFileEnc(file_path.c_str(), m_quizNode->doc, "UTF-8", 1);

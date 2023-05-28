@@ -4,8 +4,8 @@
 
 CManager::CManager()
 {
-    // Get all xml files in src/xml directory
-    const std::string dirPath = "src/xml";
+    // Get all xml files in examples/src/xml directory
+    const std::string dirPath = "examples/xml/";
     for (const auto &entry : std::filesystem::directory_iterator(dirPath))
     {
         if (entry.is_regular_file())
