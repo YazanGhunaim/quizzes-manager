@@ -19,7 +19,7 @@ void CTextAnswer::set_userAnswer(const std::string &userAnswer)
     m_userAnswer = userAnswer;
 }
 
-bool CTextAnswer::format_error() const
+bool CTextAnswer::format_error() const // if the answer is empty -> format error
 {
     return m_userAnswer.size() == 0;
 }
@@ -30,6 +30,7 @@ bool CTextAnswer::evaluate_answer()
     {
         throw std::invalid_argument("\033[1;31m[ERROR] Wrong format for text answer.\033[0m");
     }
+    
     // convert both answers to lower case
     CAnswer::tolower(m_correctAnswer);
     CAnswer::tolower(m_userAnswer);

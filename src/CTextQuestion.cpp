@@ -17,9 +17,8 @@ std::string CTextQuestion::format_info() const
 void CTextQuestion::display()
 {
     std::string user_answer;
-    std::cout << "\033[1;33mQ: " << m_question << "\033[0m\n"
-              << format_info() << std::endl;
-    std::cout << m_answer->format_info() << std::endl;
+    std::cout << "\033[1;33mQ: " << m_question << "\033[0m\n" << format_info() << std::endl;
+    std::cout << m_answer->format_info() << std::endl; // users the answer's format_info() method
     std::cout << "\033[33mA: ";
     getline(std::cin, user_answer);
     std::cout << "\033[0m";
@@ -28,7 +27,7 @@ void CTextQuestion::display()
 
 bool CTextQuestion::check_answer() const
 {
-    return m_answer->evaluate_answer();
+    return m_answer->evaluate_answer(); // uses the answer's evaluate_answer() method
 }
 
 bool CTextQuestion::format_error(const std::string &answer) const
@@ -38,6 +37,10 @@ bool CTextQuestion::format_error(const std::string &answer) const
 
 void CTextQuestion::set_userAnswer(const std::string &answer)
 {
-    m_answer->set_userAnswer(answer);
+    if (format_error(answer))
+    {
+        throw std::invalid_argument("\033[1;31m[ERROR] Wrong format for text answer.\033[0m");
+    }
+    m_answer->set_userAnswer(answer); // uses the answer's set_userAnswer() method
     return;
 }

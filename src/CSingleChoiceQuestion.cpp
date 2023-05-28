@@ -8,7 +8,7 @@ CSingleChoiceQuestion::CSingleChoiceQuestion(const std::string &question, CAnswe
         throw std::invalid_argument("\033[1;31m[ERROR] Single choice question cannot have multiple answers.\033[0m");
     }
 
-    for (size_t i = 0; i < options.size(); ++i)
+    for (size_t i = 0; i < options.size(); ++i) // converting the vector of options to a map of options
     {
         m_options[static_cast<unsigned char>('a' + i)] = options[i];
     }
@@ -38,8 +38,7 @@ std::string CSingleChoiceQuestion::format_info() const
 void CSingleChoiceQuestion::display()
 {
     std::string user_answer;
-    std::cout << "\033[1;33mQ: " << m_question << "\033[0m\n"
-              << format_info() << std::endl;
+    std::cout << "\033[1;33mQ: " << m_question << "\033[0m\n" << format_info() << std::endl;
     display_options();
     std::cout << "\033[33mA: ";
     getline(std::cin, user_answer);
@@ -49,12 +48,12 @@ void CSingleChoiceQuestion::display()
 
 bool CSingleChoiceQuestion::check_answer() const
 {
-    return m_answer->evaluate_answer();
+    return m_answer->evaluate_answer(); // uses answer's evaluate method
 }
 
 bool CSingleChoiceQuestion::format_error(const std::string &answer) const
 {
-    return answer.size() > 1 || m_options.find(answer[0]) == m_options.end();
+    return answer.size() > 1 || m_options.find(answer[0]) == m_options.end(); // if the options doesnt exist or no answer is given
 }
 
 void CSingleChoiceQuestion::set_userAnswer(const std::string &answer)
@@ -64,5 +63,5 @@ void CSingleChoiceQuestion::set_userAnswer(const std::string &answer)
         throw std::invalid_argument("\033[1;31m[ERROR] Wrong format for single choice question.\033[0m");
         return;
     }
-    m_answer->set_userAnswer(m_options.at(answer[0]));
+    m_answer->set_userAnswer(m_options.at(answer[0])); // uses answer's set_userAnswer method with the correct answer to the key
 }

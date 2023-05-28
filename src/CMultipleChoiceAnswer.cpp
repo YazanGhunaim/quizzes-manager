@@ -3,7 +3,7 @@
 CMultipleChoiceAnswer::CMultipleChoiceAnswer(const std::vector<std::string> &correctAnswers)
     : m_correctAnswers(correctAnswers) {}
 
-std::string CMultipleChoiceAnswer::get_correctAnswer() const
+std::string CMultipleChoiceAnswer::get_correctAnswer() const // iterates through the vector and returns a string consisting of all the correct answers separated by a space
 {
     std::string correctAnswer;
     for (const auto &answer : m_correctAnswers)
@@ -22,9 +22,9 @@ std::string CMultipleChoiceAnswer::format_info() const
 
 void CMultipleChoiceAnswer::set_userAnswer(const std::string &userAnswer)
 {
-    std::stringstream ss{userAnswer};
+    std::stringstream ss{userAnswer}; // convert the string to a stringstream
     std::string answer;
-    while (std::getline(ss, answer, ','))
+    while (std::getline(ss, answer, ',')) // iterate through the stringstream and push each answer into the vector with a comma as a delimiter
     {
         m_userAnswer.push_back(answer);
     }
@@ -56,6 +56,7 @@ bool CMultipleChoiceAnswer::evaluate_answer()
         CAnswer::tolower(str);
     }
 
+    // after converting strings to lower case and sorting them vector comparison is possible
     std::sort(m_correctAnswers.begin(), m_correctAnswers.end());
     std::sort(m_userAnswer.begin(), m_userAnswer.end());
     return m_correctAnswers == m_userAnswer;

@@ -12,6 +12,11 @@
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 
+/*
+ * This class is used to provide functionality to build a quiz from scratch.
+ * It is used in the CLI to create a quiz.
+ */
+
 class CXMLBuilder
 {
 private:

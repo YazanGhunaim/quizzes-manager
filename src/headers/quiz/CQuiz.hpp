@@ -2,6 +2,14 @@
 
 #include "../section/CSection.hpp"
 
+/*
+ * CQuiz class represents a quiz.
+ * It contains a name, a vector of sections, a score and a status.
+ * The score is the sum of all the scores of the sections.
+ * The status is true if the quiz is finished, false otherwise.
+ * The quiz is finished when all the sections are finished.
+ */
+
 class CQuiz
 {
 private:
@@ -19,7 +27,6 @@ public:
     void intro() const;
     void display();
     void displayResults() const;
-    void sectionChoiceView();
     bool checkStatus();
     std::string getName() const;
 

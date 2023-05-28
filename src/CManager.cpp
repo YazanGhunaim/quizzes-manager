@@ -4,6 +4,7 @@
 
 CManager::CManager()
 {
+    // Get all xml files in src/xml directory
     const std::string dirPath = "src/xml";
     for (const auto &entry : std::filesystem::directory_iterator(dirPath))
     {
@@ -13,6 +14,7 @@ CManager::CManager()
         }
     }
 
+    // Parse all xml files
     for (const auto &filePath : m_filePaths)
     {
         m_parser = CXMLParser{filePath};
@@ -54,9 +56,10 @@ std::string CManager::getSectionName() const
 {
     std::string name;
     std::getline(std::cin, name);
-    if (name.empty())
+    while (name.empty())
     {
-        throw std::invalid_argument("\033[1;31m[ERROR]You must enter a name!\033[0m");
+        std::cout << "\033[1;31m[ERROR]You must enter a name!\033[0m" << std::endl;
+        std::getline(std::cin, name);
     }
     return name;
 }
@@ -68,9 +71,10 @@ void CManager::getCorrectAnswer(std::vector<std::string> &vec, bool prompt) cons
         std::cout << "\033[1;32mPlease enter the correct answer:\033[0m ";
         std::string answer;
         std::getline(std::cin, answer);
-        if (answer.empty())
+        while (answer.empty())
         {
-            throw std::invalid_argument("\033[1;31m[ERROR]You must enter an answer!\033[0m");
+            std::cout << "\033[1;31m[ERROR]You must enter an answer!\033[0m" << std::endl;
+            std::getline(std::cin, answer);
         }
         vec.push_back(answer);
     }
@@ -91,9 +95,10 @@ void CManager::getCorrectAnswer(std::vector<std::string> &vec, bool prompt) cons
             std::cout << "\033[1;32m\nPlease enter correct answer number " << i + 1 << ":\033[0m ";
             std::string answer;
             std::getline(std::cin, answer);
-            if (answer.empty())
+            while (answer.empty())
             {
-                throw std::invalid_argument("\033[1;31m[ERROR]You must enter an answer!\033[0m");
+                std::cout << "\033[1;31m[ERROR]You must enter an answer!\033[0m" << std::endl;
+                std::getline(std::cin, answer);
             }
             vec.push_back(answer);
         }
@@ -102,7 +107,7 @@ void CManager::getCorrectAnswer(std::vector<std::string> &vec, bool prompt) cons
 
 void CManager::answers(CXMLBuilder &builder, bool single) const
 {
-    if (single)
+    if (single) // no multiple answers for single choice questions
     {
         std::cout << std::endl;
         std::cout << "\033[1;32mSpecify type of answer\033[0m" << std::endl;
@@ -181,12 +186,13 @@ void CManager::answers(CXMLBuilder &builder, bool single) const
 
 void CManager::textQuestion(CXMLBuilder &builder) const
 {
-    std::cout << "\033[1;32mPlease enter the question:\033[0m ";
+    std::cout << "\033[1;32mPlease enter the question:\033[0m";
     std::string question;
     std::getline(std::cin, question);
-    if (question.empty())
+    while (question.empty())
     {
-        throw std::invalid_argument("\033[1;31m[ERROR]You must enter a question!\033[0m");
+        std::cout << "\033[1;31m[ERROR]You must enter a question!\033[0m" << std::endl;
+        std::getline(std::cin, question);
     }
     builder.add_question("text", question);
     answers(builder);
@@ -197,9 +203,10 @@ void CManager::singleQuestion(CXMLBuilder &builder) const
     std::cout << "\033[1;32mPlease enter the question:\033[0m ";
     std::string question;
     std::getline(std::cin, question);
-    if (question.empty())
+    while (question.empty())
     {
-        throw std::invalid_argument("\033[1;31m[ERROR]You must enter a question!\033[0m");
+        std::cout << "\033[1;31m[ERROR]You must enter a question!\033[0m" << std::endl;
+        std::getline(std::cin, question);
     }
     builder.add_question("single", question);
     options(builder);
@@ -211,9 +218,10 @@ void CManager::multiQuestion(CXMLBuilder &builder) const
     std::cout << "\033[1;32mPlease enter the question:\033[0m ";
     std::string question;
     std::getline(std::cin, question);
-    if (question.empty())
+    while (question.empty())
     {
-        throw std::invalid_argument("\033[1;31m[ERROR]You must enter a question!\033[0m");
+        std::cout << "\033[1;31m[ERROR]You must enter a question!\033[0m" << std::endl;
+        std::getline(std::cin, question);
     }
     builder.add_question("multi", question);
     options(builder);
@@ -237,9 +245,10 @@ void CManager::options(CXMLBuilder &builder) const
         std::cout << "\033[1;32m\nPlease enter option number " << i + 1 << ":\033[0m ";
         std::string option;
         std::getline(std::cin, option);
-        if (option.empty())
+        while (option.empty())
         {
-            throw std::invalid_argument("\033[1;31m[ERROR]You must enter an option!\033[0m");
+            std::cout << "\033[1;31m[ERROR]You must enter a option!\033[0m" << std::endl;
+            std::getline(std::cin, option);
         }
         builder.add_option(option);
     }

@@ -20,7 +20,7 @@ void CIntervalAnswer::set_userAnswer(const std::string &userAnswer)
     m_userAnswer = userAnswer;
 }
 
-bool CIntervalAnswer::format_error() const
+bool CIntervalAnswer::format_error() const // correct format would be X-X where X is a number
 {
     int dashCount = std::count(m_userAnswer.begin(), m_userAnswer.end(), '-');
     return (m_userAnswer.size() < 3 || dashCount == 0 || dashCount > 1);
@@ -33,9 +33,9 @@ bool CIntervalAnswer::evaluate_answer()
         throw std::invalid_argument("\033[1;31m[ERROR] Wrong format for interval answer.\033[0m");
     }
 
-    std::string::size_type dashPos = m_userAnswer.find('-');
-    std::string userAnswerStart = m_userAnswer.substr(0, dashPos);
-    std::string userAnswerEnd = m_userAnswer.substr(dashPos + 1);
+    // seperating the user answer into start and end
+    std::string userAnswerStart = m_userAnswer.substr(0, m_userAnswer.find('-'));
+    std::string userAnswerEnd = m_userAnswer.substr(m_userAnswer.find('-') + 1);
 
     // Check if the user answer is within the correct interval
     int userStart = std::stoi(userAnswerStart);

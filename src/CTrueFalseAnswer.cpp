@@ -7,7 +7,7 @@ std::string CTrueFalseAnswer::get_correctAnswer() const
     return m_correctAnswer;
 }
 
-std::string CTrueFalseAnswer::format_info() const
+std::string CTrueFalseAnswer::format_info() const // anything other than True/False is wrong
 {
     std::stringstream ss;
     ss << "\033[1;36m[Your answer should be True/False]\033[0m ";

@@ -12,6 +12,14 @@
 #include <libxml/parser.h>
 #include <map>
 
+/*
+ * CXMLParser class represents a parser.
+ * It contains a file path, a map of question types and a map of answer types.
+ * The question types map contains a string and a function that returns a question.
+ * The answer types map contains a string and a function that returns an answer.
+ * The parser parses the XML file and returns a quiz.
+ */
+
 class CXMLParser
 {
 private:

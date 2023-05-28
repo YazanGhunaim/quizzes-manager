@@ -20,7 +20,7 @@ int CQuiz::totalQuestions() const
     int total = 0;
     for (auto &section : m_sections)
     {
-        total += section->totalQuestions();
+        total += section->totalQuestions(); // uses section's totalQuestions() method
     }
     return total;
 }
@@ -42,8 +42,11 @@ void CQuiz::validSectionChoice(const std::string &choice)
         throw std::invalid_argument("\033[1;31mInvalid choice!\033[0m");
     }
     std::cout << std::endl;
+
+    // display the chosen section using prebuilt functionality
     m_sections[choiceID]->display();
     m_sections[choiceID]->setStatus(true);
+    // add the score of the chosen section to the total score
     m_score += m_sections[choiceID]->getScore();
 }
 
@@ -53,6 +56,7 @@ void CQuiz::sectionChoice()
     std::string strChoice;
     for (size_t i = 0; i < m_sections.size(); ++i)
     {
+        // if the section is not finished, display it as a choice
         if (m_sections[i]->getStatus() == false)
             std::cout << "\033[1;33m" << i + 1 << ". " << m_sections[i]->getName()
                       << " (consists of " << m_sections[i]->totalQuestions()
@@ -63,20 +67,15 @@ void CQuiz::sectionChoice()
     validSectionChoice(strChoice);
 }
 
-void CQuiz::sectionChoiceView()
-{
-    sectionChoice();
-}
-
 void CQuiz::intro() const
 {
     std::cout << std::endl;
     std::cout << "         \033[1;35mWelcome to " << getName() << std::endl;
     std::cout << "There are " << totalSections() << " sections and " << totalQuestions() << " questions in total." << std::endl;
-    std::cout << "    👀 Let's see how much you know! 👀\033[0m\n"
-              << std::endl;
+    std::cout << "    👀 Let's see how much you know! 👀\033[0m\n" << std::endl;
 }
 
+// Checks if all the sections are finished
 bool CQuiz::checkStatus()
 {
     for (const auto &sec : m_sections)
@@ -93,7 +92,7 @@ bool CQuiz::checkStatus()
 void CQuiz::display()
 {
     intro();
-    while (checkStatus() == false)
+    while (checkStatus() == false) // while there are unfinished sections
     {
         try
         {

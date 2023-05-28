@@ -15,7 +15,7 @@ public:
     std::string format_info() const override;
     void set_userAnswer(const std::string &userAnswer) override;
     bool evaluate_answer() override;
-    bool multiple_answers() const override { return false;}
+    bool multiple_answers() const override { return false; }
     bool format_error() const override;
 };
 

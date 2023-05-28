@@ -19,22 +19,24 @@ void CXMLParser::addToQuestVec(const std::string &questionType, const std::strin
 {
     CAnswer *answer = nullptr;
 
+    // get the answer type and create the answer
     auto answerIt = m_answerTypes.find(answerType);
-    if (answerIt != m_answerTypes.end())
+    if (answerIt != m_answerTypes.end()) // if the answer type is found, create the answer
     {
         answer = answerIt->second(answers);
     }
-    else
+    else // if the answer type is not found, throw an exception
     {
         throw std::runtime_error("\033[1;31mUnknown answer type: " + answerType + "\033[0m");
     }
 
+    // get the question type and create the question
     auto questionIt = m_questionTypes.find(questionType);
-    if (questionIt != m_questionTypes.end())
+    if (questionIt != m_questionTypes.end()) // if the question type is found, create the question
     {
         vec.push_back(questionIt->second(questionTitle, answer, options));
     }
-    else
+    else // if the question type is not found, throw an exception
     {
         throw std::runtime_error("\033[1;31mUnknown question type: " + answerType + "\033[0m");
     }
@@ -44,6 +46,7 @@ void CXMLParser::getOptions(xmlNodePtr &node, std::vector<std::string> &vec)
 {
     for (xmlNodePtr optionChild = node->children; optionChild != nullptr; optionChild = optionChild->next)
     {
+        // options are in tags <text> </text> within <options> </options>
         if (optionChild->type == XML_ELEMENT_NODE && xmlStrcmp(optionChild->parent->name, (const xmlChar *)"options") == 0 && xmlStrcmp(optionChild->name, (const xmlChar *)"text") == 0)
         {
             std::string option = reinterpret_cast<const char *>(xmlNodeGetContent(optionChild));
@@ -61,6 +64,7 @@ void CXMLParser::getQuestions(xmlNodePtr &node, std::vector<std::shared_ptr<CQue
     std::vector<std::string> options;
     std::vector<std::string> answers;
 
+    // Extract the question details
     for (xmlNodePtr child = node->children; child != nullptr; child = child->next)
     {
         xmlAttrPtr attr = node->properties;
@@ -75,6 +79,7 @@ void CXMLParser::getQuestions(xmlNodePtr &node, std::vector<std::shared_ptr<CQue
             {
                 questionTitle = reinterpret_cast<const char *>(xmlNodeGetContent(child));
             }
+
             else if (xmlStrcmp(child->name, (const xmlChar *)"answer") == 0)
             {
                 xmlAttrPtr attr = child->properties;
@@ -82,6 +87,7 @@ void CXMLParser::getQuestions(xmlNodePtr &node, std::vector<std::shared_ptr<CQue
 
                 for (xmlNodePtr answerChild = child->children; answerChild != nullptr; answerChild = answerChild->next)
                 {
+                    // add the answers to the vector
                     if (answerChild->type == XML_ELEMENT_NODE && xmlStrcmp(answerChild->name, (const xmlChar *)"text") == 0)
                     {
                         std::string answer = reinterpret_cast<const char *>(xmlNodeGetContent(answerChild));
@@ -115,28 +121,34 @@ std::shared_ptr<CQuiz> CXMLParser::parse()
 
     setup(context, doc, root);
 
-    std::string quizTite = reinterpret_cast<const char *>(xmlGetProp(root, (const xmlChar *)"title"));
+    // Extract the quiz title
+    std::string quizTitle = reinterpret_cast<const char *>(xmlGetProp(root, (const xmlChar *)"title"));
     std::vector<std::shared_ptr<CSection>> sections;
 
+    // Extract the sections
     for (xmlNodePtr node = root->children; node != nullptr; node = node->next)
     {
         std::string sectionTitle;
         std::vector<std::shared_ptr<CQuestion>> questions;
+
         // sections
         if (node->type == XML_ELEMENT_NODE && xmlStrcmp(node->name, (const xmlChar *)"section") == 0)
         {
+            // Extract the section title
             sectionTitle = reinterpret_cast<const char *>(xmlGetProp(node, (const xmlChar *)"title"));
 
+            // Extract the questions in the section
             for (xmlNodePtr questionPtr = node->children; questionPtr != nullptr; questionPtr = questionPtr->next)
             {
                 // questions in sections
                 getQuestions(questionPtr, questions);
             }
+            // Add the section to the vector of sections
             sections.emplace_back(std::make_shared<CSection>(sectionTitle, questions));
         }
     }
     // Clean up
     xmlFreeDoc(doc);
     xmlFreeParserCtxt(context);
-    return std::make_shared<CQuiz>(quizTite, sections);
+    return std::make_shared<CQuiz>(quizTitle, sections);
 }

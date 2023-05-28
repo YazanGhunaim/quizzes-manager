@@ -6,6 +6,11 @@
 #include "../parser/CXMLParser.hpp"
 #include "../builder/CXMLBuilder.hpp"
 
+/*
+ * The CManager class is responsible for managing the entire application.
+ * It is responsible for displaying the main menu, getting user input, and
+ * creating the quiz as well for filling a quiz.
+ */
 class CManager
 {
 private:

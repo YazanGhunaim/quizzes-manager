@@ -1,19 +1,15 @@
 #include "headers/question/CMultiChoiceQuestion.hpp"
 
-// constructor
 CMultiChoiceQuestion::CMultiChoiceQuestion(const std::string &question, CAnswer *answer, const std::vector<std::string> &options)
     : CQuestion(question, answer)
 {
-    for (size_t i = 0; i < options.size(); ++i)
+    for (size_t i = 0; i < options.size(); ++i) // converting the vector of options to a map of options with key being a letter
     {
         m_options[static_cast<unsigned char>('a' + i)] = options[i];
     }
 }
 
-// destructor
-CMultiChoiceQuestion::~CMultiChoiceQuestion()
-{
-}
+CMultiChoiceQuestion::~CMultiChoiceQuestion() {}
 
 void CMultiChoiceQuestion::display_options() const
 {
@@ -35,8 +31,7 @@ std::string CMultiChoiceQuestion::format_info() const
 void CMultiChoiceQuestion::display()
 {
     std::string user_answer;
-    std::cout << "\033[1;33mQ: " << m_question << "\033[0m\n"
-              << format_info() << std::endl;
+    std::cout << "\033[1;33mQ: " << m_question << "\033[0m\n" << format_info() << std::endl;
     display_options();
     std::cout << "\033[33mA: ";
     getline(std::cin, user_answer);
@@ -46,10 +41,10 @@ void CMultiChoiceQuestion::display()
 
 bool CMultiChoiceQuestion::check_answer() const
 {
-    return m_answer->evaluate_answer();
+    return m_answer->evaluate_answer(); // uses answer's evaluate method
 }
 
-bool CMultiChoiceQuestion::format_error(const std::string &answer) const
+bool CMultiChoiceQuestion::format_error(const std::string &answer) const // if the options doesnt exist or no answer is given
 {
     for (const auto &c : answer)
     {
@@ -69,7 +64,6 @@ void CMultiChoiceQuestion::set_userAnswer(const std::string &answer)
     if (format_error(answer))
     {
         throw std::invalid_argument("\033[1;31m[ERROR] Wrong format for multi choice question.\033[0m");
-        return;
     }
 
     std::string user_answer;
@@ -84,5 +78,5 @@ void CMultiChoiceQuestion::set_userAnswer(const std::string &answer)
             user_answer += m_options.at(c);
         }
     }
-    m_answer->set_userAnswer(user_answer);
+    m_answer->set_userAnswer(user_answer); // uses answer's set_userAnswer method
 }
