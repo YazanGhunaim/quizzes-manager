@@ -1,3 +1,4 @@
+LOGIN = manager
 CFLAGS = -Wall -pedantic -O2 -Wextra -fsanitize=address -g -std=c++17 -I/usr/include/libxml2/
 LFLAGS = -fsanitize=address -lxml2
 SRC = $(wildcard src/*.cpp) # find all .cpp files in the src directory.
@@ -15,14 +16,17 @@ obj/%.o: src/%.cpp $(DEPS)
 	mkdir -p obj
 	g++ $(CFLAGS) -c $< -o $@
 
+compile: $(EXEC)
+	mv $(EXEC) ./$(LOGIN)
+
 $(EXEC): $(OBJS)
 	g++ $(LFLAGS) $^ -o $@
 
 clean:
-	rm -rf obj $(EXEC) $(DEPS)
+	rm -rf obj $(EXEC) $(DEPS) $(LOGIN)
 
-run: $(EXEC)
-	./$(EXEC)
+run: compile
+	./$(LOGIN)
 
 install:
 	@echo "Downloading and installing libxml2..."
