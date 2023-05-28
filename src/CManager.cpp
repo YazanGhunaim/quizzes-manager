@@ -1,4 +1,6 @@
 #include "headers/manager/CManager.hpp"
+#include <limits>
+#include <algorithm>
 
 CManager::CManager()
 {

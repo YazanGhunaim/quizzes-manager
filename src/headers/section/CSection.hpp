@@ -2,6 +2,7 @@
 
 #include "../question/CQuestion.hpp"
 #include <iomanip>
+#include <memory>
 
 class CSection
 {
