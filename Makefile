@@ -1,4 +1,4 @@
-CFLAGS = -Wall -pedantic -O2 -Wextra -fsanitize=address -g -std=c++17
+CFLAGS = -Wall -pedantic -O2 -Wextra -fsanitize=address -g -std=c++17 -I/usr/include/libxml2/
 LFLAGS = -fsanitize=address -lxml2
 SRC = $(wildcard src/*.cpp) # find all .cpp files in the src directory.
 
