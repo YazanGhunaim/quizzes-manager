@@ -54,6 +54,7 @@ A class Section which is a collection of questions, these sections can be displa
 
 A class Quiz which is the core building block of the application, this is a collection of sections which makes use of functionalities already built by all previous classes, the user is welcomed to the quiz and prompted which section he would like to start with and moves on to answering each question of each section, which after all sections related to a quiz are done, he receives his/her final evaluation.
 
+# XML parsing/building
 The CXMLParser class is a C++ class that provides functionality for parsing an XML file containing quiz data and constructing a quiz object from the parsed data using the libxml2 library.
 The main method of the CXMLParser class is the parse() method, which reads the XML file, extracts the quiz title, sections, and questions, and creates a quiz object.
 This method calls several other private methods to extract different parts of the quiz data, such as the section titles, question titles, answer types, and options.
