@@ -59,8 +59,12 @@ A class CManager which holds everything together, provides interfaces for the en
 # XML parsing/building
 The CXMLParser class is a C++ class that provides functionality for parsing an XML file containing quiz data and constructing a quiz object from the parsed data using the libxml2 library.
 The main method of the CXMLParser class is the parse() method, which reads the XML file, extracts the quiz title, sections, and questions, and creates a quiz object.
+
 This method calls several other private methods to extract different parts of the quiz data, such as the section titles, question titles, answer types, and options.
-The CXMLParser class also has several private methods for extracting different parts of the quiz data, such as the setup() method for initializing the parser context and parsing the XML file, the addToQuestVec() method for adding a new question to the vector of questions in a section, the getOptions() method for extracting the options for a question from the XML node, and the getQuestions() method for extracting the details of a question from an XML node and adding it to the vector of questions.  Overall, the CXMLParser class provides a convenient way to parse XML files containing quiz data and construct a quiz object from the parsed data.
+
+The CXMLParser class also has several private methods for extracting different parts of the quiz data, such as the setup() method for initializing the parser context and parsing the XML file, the addToQuestVec() method for adding a new question to the vector of questions in a section, the getOptions() method for extracting the options for a question from the XML node, and the getQuestions() method for extracting the details of a question from an XML node and adding it to the vector of questions.  
+
+Overall, the CXMLParser class provides a convenient way to parse XML files containing quiz data and construct a quiz object from the parsed data.
 
 A class CXMLBuilder that provides functionality in which a user can from the terminal, create his own custom quiz which will be saved as an XML, without the need to have any XML knowledge however must follow and know the types of questions and answers and how they should be formatted.
 
