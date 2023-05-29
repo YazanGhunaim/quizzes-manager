@@ -47,8 +47,8 @@ Text question with multiple answers:
 Single choice question with interval answers:
 
 	When did WW1 take place:
-	1914-1918
-	2021-2022
+	A: 1914-1918
+	B: 2021-2022
 
 A class Section which is a collection of questions, these sections can be displayed by making use of functionalities already built by CQuestion and CAnswer classes, each question in the section is displayed and is continuously prompted until a valid answer is written.
 
